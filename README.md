@@ -1,4 +1,4 @@
-# pohja
+# Joonas Ruuth ja Henri Pigg harjoitustyö
 
 Pohja kevään 2021 harjoitustöiden GIT-repoille
 
