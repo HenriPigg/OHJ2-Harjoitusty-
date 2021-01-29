@@ -64,11 +64,11 @@
                   <Label text="Striimaukset" GridPane.rowIndex="7" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                  <TextField text="Paratiisitie 13" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <TextField text="12345" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <TextField text="ANKKALINNA" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <TextField text="12-12345" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
-                  <TextField text="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
                </children>
                <opaqueInsets>
