@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -63,13 +65,27 @@
                   <Label text="Levy-yhtiö" GridPane.rowIndex="6" />
                   <Label text="Striimaukset" GridPane.rowIndex="7" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+                  <SplitMenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Travis Scott" />
+                      <MenuItem mnemonicParsing="false" text="Backstreet Boys" />
+                        <MenuItem mnemonicParsing="false" text="Oasis" />
+                    </items>
+                  </SplitMenuButton>
+                  <SplitMenuButton layoutX="112.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Creation Records" />
+                        <MenuItem mnemonicParsing="false" text="Cactus Jack Records" />
+                        <MenuItem mnemonicParsing="false" text="Epic Records" />
+                        <MenuItem mnemonicParsing="false" text="Jive" />
+                     </items>
+                  </SplitMenuButton>
                </children>
                <opaqueInsets>
                   <Insets left="10.0" top="10.0" />
