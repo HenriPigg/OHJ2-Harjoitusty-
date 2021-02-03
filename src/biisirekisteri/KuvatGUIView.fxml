@@ -50,7 +50,6 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar />
             <Label text="Kappaleen nimi">
                <padding>
                   <Insets bottom="3.0" left="76.0" />
