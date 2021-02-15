@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0" style="-fx-background-color: #2EEEB0;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0" style="-fx-background-color: #2EEEB0;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.AloitusController">
    <center>
       <VBox spacing="8.0" style="-fx-background-color: #2EEEB0;" BorderPane.alignment="CENTER">
          <children>
@@ -49,7 +48,7 @@
                   <Insets right="125.0" />
                </VBox.margin>
             </Label>
-            <TextField>
+            <TextField fx:id="textVastaus" text="Biisit">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
@@ -59,12 +58,12 @@
             </TextField>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button alignment="TOP_LEFT" defaultButton="true" mnemonicParsing="false" text="OK">
+                  <Button alignment="TOP_LEFT" defaultButton="true" mnemonicParsing="false" onAction="#handleOK" text="OK">
                      <HBox.margin>
                         <Insets left="143.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button alignment="TOP_LEFT" cancelButton="true" contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" text="Peruuta">
+                  <Button alignment="TOP_LEFT" cancelButton="true" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleCancel" text="Peruuta">
                      <HBox.margin>
                         <Insets top="15.0" />
                      </HBox.margin>

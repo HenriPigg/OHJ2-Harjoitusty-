@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.jyu.mit.fxgui.ModalController">
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -32,12 +32,12 @@
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Lisää levy-yhtiö">
+            <Button mnemonicParsing="false" onAction="#handleDefaultOK" text="Lisää levy-yhtiö">
                <HBox.margin>
                   <Insets bottom="10.0" left="25.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Poista levy-yhtiö">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDefaultCancel" text="Poista levy-yhtiö">
                <HBox.margin>
                   <Insets bottom="10.0" left="35.0" right="11.0" top="10.0" />
                </HBox.margin>

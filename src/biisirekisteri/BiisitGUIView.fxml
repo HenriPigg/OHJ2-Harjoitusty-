@@ -12,23 +12,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.KuvatGUIController">
+<BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.BiisitGUIController">
    <top>
       <MenuBar prefHeight="17.0" prefWidth="485.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#handleTallenna" text="Tallenna" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleAvaa" text="Avaa" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSulje" text="Lopeta" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNaytaArtistit" text="Näytä artistit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNaytaYhtiot" text="Näytä levy-yhtiöt" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Apua">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleApua" text="About" />
             </items>
           </Menu>
         </menus>
@@ -37,9 +40,9 @@
    <bottom>
       <HBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Lisää biisi" />
-            <Button mnemonicParsing="false" text="Poista biisi" />
-            <Button mnemonicParsing="false" text="Muokkaa" />
+            <Button mnemonicParsing="false" onAction="#handleLisaaBiisi" text="Lisää biisi" />
+            <Button mnemonicParsing="false" onAction="#handlePoistaBiisi" text="Poista biisi" />
+            <Button mnemonicParsing="false" onAction="#handleMuokkausSivu" text="Muokkaa" />
             <Button mnemonicParsing="false" onAction="#handleTallenna" text="Tallenna" />
          </children>
          <padding>
