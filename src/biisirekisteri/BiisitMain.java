@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
+import fxKappaleet.Rekisteri;
 
 /**
  * @author Joonas Ruuth & Henri Pigg
@@ -27,6 +28,9 @@ public class BiisitMain extends Application {
             primaryStage.setOnCloseRequest((event) -> {
                 if ( !biisitCtrl.voikoSulkea() ) event.consume();
             });
+            
+            Rekisteri rekisteri = new Rekisteri();
+            biisitCtrl.setRekisteri(rekisteri);
         
         primaryStage.show();
         if ( !biisitCtrl.avaa() ) Platform.exit();

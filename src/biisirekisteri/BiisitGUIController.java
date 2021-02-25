@@ -2,15 +2,30 @@ package biisirekisteri;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.io.PrintStream;
+
 
 import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import fi.jyu.mit.fxgui.TextAreaOutputStream;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
+import javafx.scene.control.TextArea;
+import fi.jyu.mit.fxgui.ListChooser;
+import javafx.scene.control.ScrollPane;
+
+
+import fxKappaleet.Kappale;
+//import fxKappaleet.Kappaleet;
+import fxKappaleet.SailoException;
+import fxKappaleet.Rekisteri;
+
+
 
 
 /**
@@ -23,6 +38,9 @@ public class BiisitGUIController implements Initializable{
     @FXML private TextField hakuehto;
     @FXML private ComboBoxChooser<String> cbKentat;
     @FXML private Label labelVirhe;
+    @FXML private ScrollPane panelKappale;
+    @FXML private ListChooser<Kappale> chooserKappaleet;
+
 
     
     private String listannimi = "Hittibiisit";
@@ -30,7 +48,7 @@ public class BiisitGUIController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        //      
+        //alusta();      
     }
 
     
@@ -62,8 +80,8 @@ public class BiisitGUIController implements Initializable{
 
     
     @FXML
-    void handleLisaaBiisi() {
-        Dialogs.showMessageDialog("Ei osata vielä lisätä :(");
+    void handleLisaaKappale() {
+        uusiKappale();
     }
     
     
@@ -74,7 +92,7 @@ public class BiisitGUIController implements Initializable{
     
     
     @FXML
-    void handlePoistaBiisi() {
+    void handlePoistaKappale() {
         Dialogs.showMessageDialog("Ei osata vielä poistaa :(");
     }
     
@@ -93,7 +111,82 @@ public class BiisitGUIController implements Initializable{
     }
     
     
-    //------------------------- TÄSTÄ ETEENPÄIN EI LIITY KÄYTTÖLIITTYMÄÄN ----------------------------
+    //------------------------- TÄSTÄ ETEENPÄIN EI LIITY SUORAAN KÄYTTÖLIITTYMÄÄN ----------------------------
+    
+    
+    private Rekisteri rekisteri;
+    private Kappale kappaleKohdalla;
+    private TextArea areaKappale = new TextArea();
+    
+    
+    /**
+     * Tarvittavat alustukset
+     */
+    protected void alusta() {
+        panelKappale.setContent(areaKappale);
+        areaKappale.setFont(new Font("Courier New", 12));
+        panelKappale.setFitToHeight(true);
+        
+        chooserKappaleet.clear();
+        chooserKappaleet.addSelectionListener(e -> naytaKappale());
+    }
+    
+    
+    /**
+     * Näyttää valitun kappaleen ja sen tiedot
+     */
+    protected void naytaKappale() {
+        kappaleKohdalla = chooserKappaleet.getSelectedObject();
+        
+        if(kappaleKohdalla == null) return;
+        
+        areaKappale.setText("");
+        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKappale)){
+            kappaleKohdalla.tulosta(os);
+        }     
+    }
+    
+    
+    /**
+     * @param nro Kappaleen numero
+     */
+    protected void hae(int nro) {
+        chooserKappaleet.clear();
+        
+        int index = 0;
+        for(int i = 0; i < rekisteri.getKappaleet(); i++) {
+            Kappale kappale = rekisteri.annaKappale(i);
+            if (kappale.getKappaleId() == nro) index = i;
+            chooserKappaleet.add(kappale.getKappaleenNimi(), kappale);
+        }
+        chooserKappaleet.setSelectedIndex(index);
+    }
+    
+    
+    /**
+     * 
+     */
+    protected void uusiKappale() {
+        Kappale uusi = new Kappale();
+        uusi.rekisteroi();
+        uusi.vastaaSickoMode();
+        try {
+            rekisteri.lisaa(uusi);
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Ongelmia uuden kappaleen luomisessa " + ex.getMessage());
+            return;
+        }
+        hae(uusi.getKappaleId());
+    }
+    
+    
+    /**
+     * @param rekisteri Rekisteri, jota käytetään tässä ohjelmassa
+     */
+    public void setRekisteri(Rekisteri rekisteri) {
+        this.rekisteri = rekisteri;
+        naytaKappale();
+    }
     
     
     /**
@@ -132,6 +225,35 @@ public class BiisitGUIController implements Initializable{
         lueTiedosto(nimi);
         return true;
     }
+    
+    
+    /**
+     * Tulostaa kappaleen tiedot
+     * @param os tietovirta johon tulostetaan
+     * @param kappale tulostettava kappale
+     */
+    public void tulosta(PrintStream os, final Kappale kappale) {
+        os.println("----------------------------------------------");
+        kappale.tulosta(os);
+        os.println("----------------------------------------------");
+    }
+    
+    
+    /**
+     * Tulostaa listassa olevat kappaleet tekstialueeseen
+     * @param text alue johon tulostetaan
+     */
+    public void tulostaValitut(TextArea text) {
+        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(text)) {
+            os.println("Tulostetaan kaikki jäsenet");
+            for (int i = 0; i < rekisteri.getKappaleet(); i++) {
+                Kappale kappale = rekisteri.annaKappale(i);
+                tulosta(os, kappale);
+                os.println("\n\n");
+            }
+        }
+    }
+
     
     
     private void naytaVirhe(String virhe) {

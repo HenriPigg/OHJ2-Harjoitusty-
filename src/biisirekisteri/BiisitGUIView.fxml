@@ -11,6 +11,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import fi.jyu.mit.fxgui.ListChooser?>
+<?import fi.jyu.mit.fxgui.ComboBoxChooser?>
+<?import javafx.scene.control.ScrollPane?>
+
 
 <BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.BiisitGUIController">
    <top>
@@ -40,8 +44,8 @@
    <bottom>
       <HBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleLisaaBiisi" text="Lisää biisi" />
-            <Button mnemonicParsing="false" onAction="#handlePoistaBiisi" text="Poista biisi" />
+            <Button mnemonicParsing="false" onAction="#handleLisaaKappale" text="Lisää biisi" />
+            <Button mnemonicParsing="false" onAction="#handlePoistaKappale" text="Poista biisi" />
             <Button mnemonicParsing="false" onAction="#handleMuokkausSivu" text="Muokkaa" />
             <Button mnemonicParsing="false" onAction="#handleTallenna" text="Tallenna" />
          </children>
@@ -53,15 +57,18 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Label text="Kappaleen nimi">
+            
+		 	<Label alignment="CENTER" maxWidth="300.0" text="Hakuehto" />
+          	<ComboBoxChooser fx:id="cbKentat" maxWidth="300.0" onAction="#handleHakuehto" rivit="Kappale&#10;Artisti&#10;Levy-yhtiö&#10;Genre&#10;" />
+            <TextField fx:id="hakuehto" onKeyReleased="#handleHakuehto" />
+            <VBox>
+               <children>
+               <Label text="Kappaleen nimi">
                <padding>
                   <Insets bottom="3.0" left="76.0" />
                </padding>
             </Label>
-            <TextField text="SICKO MODE" />
-            <VBox>
-               <children>
-                  <ListView />
+                  <ListChooser fx:id="chooserKappaleet"  maxHeight="1.7976931348623157E308" prefHeight="100.0" rivit="SICKO MODE&#10;One&#10;I Want It That Way&#10;Wonderwall&#10;" BorderPane.alignment="CENTER" /> 
                </children>
             </VBox>
          </children>
