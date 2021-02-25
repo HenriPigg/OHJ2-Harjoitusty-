@@ -56,19 +56,11 @@ public class BiisitGUIController implements Initializable{
     } 
     
     
-    /**
-     * @return true niin suljetaan, false niin ei
-     */
-    public boolean voikoSulkea() {
-        tallenna();
-        return true;
-    }
-    
-    
     @FXML private void handleAvaa() {
         Dialogs.showMessageDialog("Ei osata vielä lisätä :(");
     }
 
+    
     @FXML
     void handleLisaaBiisi() {
         Dialogs.showMessageDialog("Ei osata vielä lisätä :(");
@@ -101,7 +93,16 @@ public class BiisitGUIController implements Initializable{
     }
     
     
+    //------------------------- TÄSTÄ ETEENPÄIN EI LIITY KÄYTTÖLIITTYMÄÄN ----------------------------
     
+    
+    /**
+     * @return true niin suljetaan, false niin ei
+     */
+    public boolean voikoSulkea() {
+        tallenna();
+        return true;
+    }
     
     
     /**
@@ -120,7 +121,6 @@ public class BiisitGUIController implements Initializable{
     private void setTitle(String title) {
         ModalController.getStage(hakuehto).setTitle(title);
     }
-
     
     
     /**
@@ -145,8 +145,6 @@ public class BiisitGUIController implements Initializable{
     }
 
 
-    
-    
     private void tallenna() {
         Dialogs.showMessageDialog("Ei osata tallentaa.");
     }
