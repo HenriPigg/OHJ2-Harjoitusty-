@@ -17,10 +17,11 @@ public class BiisitMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader ldr = new FXMLLoader(getClass().getResource("BiisitGUIView.fxml"));
+            final FXMLLoader ldr = new FXMLLoader(getClass().getResource("BiisitGUIView.fxml"));
             final Pane root = (Pane)ldr.load();
             final BiisitGUIController biisitCtrl = (BiisitGUIController) ldr.getController();
-            Scene scene = new Scene(root);
+            
+            final Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("kuvat.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Hittibiisit");

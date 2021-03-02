@@ -74,16 +74,45 @@ public class Kappale {
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {
-        this.kappaleId = 1;
+        this.kappaleId = this.rekisteroi();
         this.artistiId = 10;
         this.artistiNimi = " Travis Scott";
         this.albumi = "ASTROWORLD";
         this.genre = "Hip hop";
         this.levyyhtio = "Creation Records";
-        this.kappaleenNimi = "Sicko Mode";
+        this.kappaleenNimi = "SICKO MODE";
         this.julkaisuvuosi = 2018;
-        this.kuuntelukerrat = 1297875520;
+        this.kuuntelukerrat = randomi(2000,100000);
         this.levyyhtioID = 100;
+    }
+    
+    
+    /**
+     * @param yla alaraja
+     * @param ala yläraja
+     * @return Satunnainen luku halutulta väliltä
+     */
+    public static int randomi(int yla, int ala) {
+        double n = (yla-ala)*Math.random() + ala;
+        
+        return (int)Math.round(n);
+    }
+    
+    
+    /**
+     * Luodaan testiarvot kappaleelle.
+     */
+    public void vastaaWonderwall() {
+        this.kappaleId = 2;
+        this.artistiId = 20;
+        this.artistiNimi = " Oasis";
+        this.albumi = "Jotain";
+        this.genre = "Jotain";
+        this.levyyhtio = "En muista";
+        this.kappaleenNimi = "Wonderwall";
+        this.julkaisuvuosi = 2012;
+        this.kuuntelukerrat = 129787999;
+        this.levyyhtioID = 101;
     }
     
     
@@ -111,7 +140,9 @@ public class Kappale {
         
         //eka.tulosta(System.out);
         eka.vastaaSickoMode();
+        toka.vastaaWonderwall();
         eka.tulosta(System.out);
+        toka.tulosta(System.out);
         
     }
 

@@ -49,7 +49,7 @@ public class Rekisteri {
             sicko1.rekisteroi();
             sicko1.vastaaSickoMode();
             sicko2.rekisteroi();
-            sicko2.vastaaSickoMode();
+            sicko2.vastaaWonderwall();
 
             rekisteri.lisaa(sicko1);
             rekisteri.lisaa(sicko2);

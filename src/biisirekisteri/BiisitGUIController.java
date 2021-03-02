@@ -48,7 +48,7 @@ public class BiisitGUIController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        //alusta();      
+        alusta();      
     }
 
     
@@ -168,7 +168,7 @@ public class BiisitGUIController implements Initializable{
      */
     protected void uusiKappale() {
         Kappale uusi = new Kappale();
-        uusi.rekisteroi();
+        //uusi.rekisteroi();
         uusi.vastaaSickoMode();
         try {
             rekisteri.lisaa(uusi);

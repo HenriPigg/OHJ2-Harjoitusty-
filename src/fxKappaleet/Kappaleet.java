@@ -66,7 +66,7 @@ public class Kappaleet {
         sicko1.rekisteroi();
         sicko1.vastaaSickoMode();
         sicko2.rekisteroi();
-        sicko2.vastaaSickoMode();
+        sicko2.vastaaWonderwall();
         
         
         try {

@@ -9,11 +9,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import fi.jyu.mit.fxgui.ListChooser?>
 <?import fi.jyu.mit.fxgui.ComboBoxChooser?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 
 
 <BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.BiisitGUIController">
@@ -78,51 +81,44 @@
       </VBox>
    </left>
    <right>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Artisti">
-               <padding>
-                  <Insets left="36.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="3.0" left="-25.0" />
-               </VBox.margin>
-            </Label>
-            <TextField text="Travis Scott" />
-            <Label layoutX="10.0" layoutY="10.0" text="Albumi">
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField layoutX="10.0" layoutY="30.0" text="ASTROWORLD" />
-            <Label layoutX="10.0" layoutY="10.0" text="Julkaisuvuosi">
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField layoutX="10.0" layoutY="130.0" text="2018" />
-            <Label layoutX="10.0" layoutY="55.0" text="Levy-yhtiö">
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField layoutX="10.0" layoutY="30.0" text="Creation Records" />
-            <Label layoutX="10.0" layoutY="97.0" text="Genre">
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField layoutX="10.0" layoutY="80.0" text="Hip hop" />
-            <Label layoutX="10.0" layoutY="10.0" text="Kuuntelukerrat">
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField layoutX="10.0" layoutY="198.0" text="1 297 875 520" />
-         </children>
-         <BorderPane.margin>
-            <Insets right="24.0" top="5.0" />
-         </BorderPane.margin>
-      </VBox>
+      <ScrollPane fx:id="panelKappale" fitToWidth="true" pannable="true" BorderPane.alignment="CENTER"> 
+                     <content>
+                        <GridPane hgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Artisti" />
+                              <Label text="Albumi" GridPane.rowIndex="1" />
+                              <Label text="Julkaisuvuosi" GridPane.rowIndex="2" />
+                              <Label text="Levy-yhtiö" GridPane.rowIndex="3" />
+                              <Label text="Genre" GridPane.rowIndex="4" />
+                              <Label text="Kuuntelukerrat" GridPane.rowIndex="5" />
+                              <TextField text="Travis Scott" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                              <TextField text="ASTROWORLD" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                              <TextField text="2018" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                              <TextField text="Creation Records" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                              <TextField text="Hip Hop" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                              <TextField text="1926496174" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets left="10.0" top="10.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+
    </right>
 </BorderPane>
