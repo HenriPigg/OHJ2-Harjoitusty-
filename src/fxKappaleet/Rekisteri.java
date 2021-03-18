@@ -43,7 +43,7 @@ public class Rekisteri {
         Rekisteri rekisteri = new Rekisteri();
 
         try {
-            // kerho.lueTiedostosta("kelmit");
+            // kerho.lueTiedostosta("");
 
             Kappale sicko1 = new Kappale(), sicko2 = new Kappale();
             sicko1.rekisteroi();

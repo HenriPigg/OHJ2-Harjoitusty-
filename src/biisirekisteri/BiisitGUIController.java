@@ -95,7 +95,8 @@ public class BiisitGUIController implements Initializable{
     void handlePoistaKappale() {
         Dialogs.showMessageDialog("Ei osata vielä poistaa :(");
     }
-    
+
+
     @FXML private void handleNaytaArtistit() {
         ModalController.showModal(BiisitGUIController.class.getResource("LisaaArtisti.fxml"), listannimi, null, "");
     }
@@ -135,7 +136,7 @@ public class BiisitGUIController implements Initializable{
     /**
      * Näyttää valitun kappaleen ja sen tiedot
      */
-    protected void naytaKappale() {
+    private void naytaKappale() {
         kappaleKohdalla = chooserKappaleet.getSelectedObject();
         
         if(kappaleKohdalla == null) return;
@@ -150,7 +151,7 @@ public class BiisitGUIController implements Initializable{
     /**
      * @param nro Kappaleen numero
      */
-    protected void hae(int nro) {
+    private void hae(int nro) {
         chooserKappaleet.clear();
         
         int index = 0;
@@ -166,7 +167,7 @@ public class BiisitGUIController implements Initializable{
     /**
      * 
      */
-    protected void uusiKappale() {
+    private void uusiKappale() {
         Kappale uusi = new Kappale();
         //uusi.rekisteroi();
         uusi.vastaaSickoMode();
@@ -205,9 +206,9 @@ public class BiisitGUIController implements Initializable{
     protected void lueTiedosto(String nimi) {
         listannimi = nimi;
         setTitle("Hittibiisit - " + listannimi);
-        String virhe = "Ei osata lukea vielä";  // TODO: tähän oikea tiedoston lukeminen
+        //String virhe = "Ei osata lukea vielä";  // TODO: tähän oikea tiedoston lukeminen
         // if (virhe != null) 
-            Dialogs.showMessageDialog(virhe);
+            //Dialogs.showMessageDialog(virhe);
     }
 
     
