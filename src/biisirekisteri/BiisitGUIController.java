@@ -169,7 +169,7 @@ public class BiisitGUIController implements Initializable{
      */
     private void uusiKappale() {
         Kappale uusi = new Kappale();
-        //uusi.rekisteroi();
+        uusi.rekisteroi();
         uusi.vastaaSickoMode();
         try {
             rekisteri.lisaa(uusi);
