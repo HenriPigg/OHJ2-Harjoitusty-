@@ -50,7 +50,10 @@ public class Artisti {
     }
     
 
-    private int rekisteroi() {
+    /**
+     * @return rekisteröidyn artistin
+     */
+    public int rekisteroi() {
         this.artistiID = seuraavaNro;
         seuraavaNro++;
         
@@ -63,7 +66,7 @@ public class Artisti {
      * Luodaan testiarvot artistille.
      */
     public void vastaaTravisScott() {
-        this.artistiID = this.rekisteroi();
+        this.artistiID = getArtistiID();
         this.levyyhtioID = 1000;
         this.artistiNimi = "Travis Scott";
         this.aloitusvuosi = 2018;

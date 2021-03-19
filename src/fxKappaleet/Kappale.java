@@ -74,7 +74,7 @@ public class Kappale {
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {
-        this.kappaleId = this.rekisteroi();
+        this.kappaleId = getKappaleId();
         this.artistiId = 10;
         this.artistiNimi = " Travis Scott";
         this.albumi = "ASTROWORLD";
@@ -103,7 +103,7 @@ public class Kappale {
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaWonderwall() {
-        this.kappaleId = 2;
+        this.kappaleId = getKappaleId();
         this.artistiId = 20;
         this.artistiNimi = " Oasis";
         this.albumi = "Jotain";

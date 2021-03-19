@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * @author OMISTAJA
+ * @author Joonas Ruuth & Henri Pigg
  * @version 18.3.2021
  *
  */
@@ -17,7 +17,7 @@ public class Levyyhtio {
     private String levyyhtio;
     private int perustamisvuosi;
     
-    private static int seuraavaNro = 999;
+    private static int seuraavaNro = 1000;
     
     /**
      * @param args Ei käytössä
@@ -82,7 +82,7 @@ public class Levyyhtio {
      * Testiarvot
      */
     public void vastaaCreation() {
-        this.levyyhtioID = this.rekisteroi();
+        this.levyyhtioID = getLevyyhtioID();
         this.levyyhtio = "Creation Records";
         this.perustamisvuosi = 2013;
     }
