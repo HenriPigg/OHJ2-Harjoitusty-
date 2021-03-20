@@ -5,6 +5,7 @@ package fxKappaleet;
 
 import java.io.*;
 
+
 /**
  * @author Joonas Ruuth & Henri Pigg
  * @version 22.2.2021
@@ -13,17 +14,14 @@ import java.io.*;
 public class Kappale {
 
     private int kappaleId = 0;
-    private int artistiId = 0;
-    private int levyyhtioID = 0;
+    private int artistiID = 0;
     private String kappaleenNimi = "";
+    private String albumi = "";
     private int julkaisuvuosi = 0;
+    private String genre = "";
     private int kuuntelukerrat = 0;
     
-    //----Poistoon?-----
-    private String artistiNimi = "";
-    private String albumi = "";
-    private String levyyhtio = "";
-    private String genre = "";
+  
 
 
 
@@ -35,11 +33,9 @@ public class Kappale {
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
-        out.println(String.format("%02d", kappaleId) + "  " + kappaleenNimi);
-        out.println(String.format("%02d", artistiId) + " " + artistiNimi);
+        out.println(kappaleenNimi);
         out.println(albumi);
         out.println(String.format("%d", julkaisuvuosi));
-        out.println(String.format("%d", levyyhtioID) + " " + levyyhtio);
         out.println(genre);
         out.println(String.format("%d", kuuntelukerrat));
     }
@@ -69,22 +65,28 @@ public class Kappale {
         tulosta(new PrintStream(os));
     }
 
+
+    /**
+     * @return Palauttaa kappaleen artisti id:n
+     */
+    public int getArtistiID() {
+        return this.artistiID;
+    }
+    
     
     /**
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {
         this.kappaleId = getKappaleId();
-        this.artistiId = 10;
-        this.artistiNimi = " Travis Scott";
+        this.artistiID = 10;
         this.albumi = "ASTROWORLD";
         this.genre = "Hip hop";
-        this.levyyhtio = "Creation Records";
         this.kappaleenNimi = "SICKO MODE";
         this.julkaisuvuosi = 2018;
         this.kuuntelukerrat = randomi(2000,100000);
-        this.levyyhtioID = 100;
     }
+    
     
     
     /**
@@ -104,15 +106,12 @@ public class Kappale {
      */
     public void vastaaWonderwall() {
         this.kappaleId = getKappaleId();
-        this.artistiId = 20;
-        this.artistiNimi = " Oasis";
+        this.artistiID = 20;
         this.albumi = "Jotain";
         this.genre = "Jotain";
-        this.levyyhtio = "En muista";
         this.kappaleenNimi = "Wonderwall";
         this.julkaisuvuosi = 2012;
-        this.kuuntelukerrat = 129787999;
-        this.levyyhtioID = 101;
+        this.kuuntelukerrat = randomi(200, 10000000);
     }
     
     

@@ -1,90 +1,117 @@
-/**
- * 
- */
 package fxArtistit;
 
-import fxKappaleet.SailoException;
+import java.util.*;
+
 
 /**
- * @author Joonas Ruuth & Henri Pigg
- * @version 19.3.2021
+ * Kerhon harrastukset, joka osaa mm. lisätä uuden harrastuksen
  *
+ * @author Vesa Lappalainen
+ * @version 1.0, 22.02.2003
  */
-public class Artistit {
+public class Artistit implements Iterable<Artisti> {
 
-    private static final int MAX_ARTISTIT = 10;
-    private int lkm = 0;
-    
-    private Artisti alkiot[] = new Artisti[MAX_ARTISTIT];
-    
+    //private String                      tiedostonNimi = "";
+
+    /** Taulukko artisteista */
+    private final Collection<Artisti> alkiot        = new ArrayList<Artisti>();
+
+
     /**
-     * Oletusmuodostaja
+     * Artistin alustaminen
      */
     public Artistit() {
-        //
-    }
-    
-    
-    /**
-     * @return Lkm
-     */
-    public int getLkm() {
-        return this.lkm;
-    }
-    
-    
-   /**
-     * @param artisti Lisättävän artistin viite
-     * @throws SailoException jos tietorakenne on täynnä
-     */
-    public void lisaa(Artisti artisti) throws SailoException {
-        if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");
-        alkiot[lkm] = artisti;
-        lkm++;
-    }
-    
-    
-    /**
-     * @param i Monennes menossa
-     * @return viite artistiin indeksissä i
-     * @throws IndexOutOfBoundsException Jos i on yli sallitun rajan
-     */
-    public Artisti anna(int i) throws IndexOutOfBoundsException{
-        if (i < 0 || lkm <= i)
-            throw new IndexOutOfBoundsException("Ei sallittu indeksi: " + i);
-        return alkiot[i];
-    }
-    
-    
-    /**
-     * @param args Ei käytössä
-     */
-    public static void main(String[] args) {
-        Artistit artistit = new Artistit();
-        
-        Artisti travis = new Artisti(), travis2 = new Artisti();
-        
-        travis.rekisteroi();
-        travis.vastaaTravisScott();
-        travis2.rekisteroi();
-        travis2.vastaaTravisScott();
-        
-        try {
-            artistit.lisaa(travis);
-            artistit.lisaa(travis2);
-            
-            System.out.println(" ____________ Artistit testi ____________");
-            
-            
-            for (int i = 0; i < artistit.getLkm(); i++) {
-                Artisti artisti = artistit.anna(i);
-                System.out.println("Artisti numero: " + i);
-                artisti.tulosta(System.out);
-            }
-        } catch (SailoException ex) {
-            System.out.println(ex.getMessage());
-        }
-    
+        // toistaiseksi ei tarvitse tehdä mitään
     }
 
+
+    /**
+     * Lisää uuden artistin tietorakenteeseen.
+     * @param artisti lisättävä artisti.  Huom tietorakenne muuttuu omistajaksi
+     */
+    public void lisaa(Artisti artisti) {
+        alkiot.add(artisti);
+    }
+
+
+    /**
+     * Palauttaa Rekisterin artistien lukumäärän
+     * @return harrastusten lukumäärä
+     */
+    public int getLkm() {
+        return alkiot.size();
+    }
+
+
+    /**
+     * Iteraattori kaikkien artistien läpikäymiseen
+     * @return artistiiteraattori
+     * 
+     */
+    @Override
+    public Iterator<Artisti> iterator() {
+        return alkiot.iterator();
+    }
+
+
+    /**
+     * @param nro Viite jota haetaan
+     * @return Artistin oikealla id:llä
+     
+    public Artisti annaArtisti(int nro) {
+        Artisti oikea = new Artisti();
+        for(Artisti artisti : alkiot) {                         // TODO: TSEKKAA ONKO MIHINKÄÄN
+            if(artisti.getArtistiID() == nro) oikea = artisti;
+        }      
+        return oikea;
+    }
+     */
+    
+    /**
+     * 
+     * @param nro Numero, jota verrataan artisti id:seen 
+     * @return tietorakenne jossa viiteet löydetteyihin artisteihin
+     */
+    public List<Artisti> annaArtistit(int nro) {
+        List<Artisti> loydetyt = new ArrayList<Artisti>();
+        for (Artisti artisti : alkiot)
+            if(artisti.getArtistiID() == nro) loydetyt.add(artisti);
+        return loydetyt;
+    }
+
+
+    /**
+     * Testiohjelma harrastuksille
+     * @param args ei käytössä
+     */
+    public static void main(String[] args) {
+        Artistit harrasteet = new Artistit();
+        Artisti artisti1 = new Artisti();
+        Artisti artisti2 = new Artisti();
+
+        harrasteet.lisaa(artisti1);
+        artisti1.vastaaTravisScott(10);
+        harrasteet.lisaa(artisti2);
+        artisti2.vastaaOasis(20);
+
+        System.out.println("============= Artistit testi =================");
+
+        List<Artisti> artistit2 = harrasteet.annaArtistit(10);
+        List<Artisti> artistit3 = harrasteet.annaArtistit(20);
+
+
+        for (Artisti ar : artistit2) {
+            System.out.print(ar);
+            ar.tulosta(System.out);
+        }
+        System.out.println("---------------------------------------");
+        for (Artisti ar : artistit3) {
+            System.out.print(ar);
+            ar.tulosta(System.out);
+        }
+
+    }
+
+
+    
 }

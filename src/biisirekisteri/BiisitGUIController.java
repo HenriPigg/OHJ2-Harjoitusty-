@@ -1,6 +1,7 @@
 package biisirekisteri;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.io.PrintStream;
 
@@ -11,6 +12,7 @@ import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import fi.jyu.mit.fxgui.TextAreaOutputStream;
+import fxArtistit.Artisti;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -82,9 +84,11 @@ public class BiisitGUIController implements Initializable{
     @FXML
     void handleLisaaKappale() {
         uusiKappale();
+        uusiArtisti();
+
     }
     
-    
+
     @FXML
     void handleApua() {
         Dialogs.showMessageDialog("Ei osata vielä antaa apua :(");
@@ -149,6 +153,7 @@ public class BiisitGUIController implements Initializable{
     
     
     /**
+     * Hakee kappaleen tiedot listaan
      * @param nro Kappaleen numero
      */
     private void hae(int nro) {
@@ -164,6 +169,16 @@ public class BiisitGUIController implements Initializable{
     }
     
     
+    private void uusiArtisti() {
+        if(kappaleKohdalla == null) return;
+        Artisti artisti = new Artisti();
+        artisti.rekisteroi();
+        artisti.vastaaTravisScott(kappaleKohdalla.getArtistiID());
+        rekisteri.lisaa(artisti);
+        hae(kappaleKohdalla.getKappaleId());       
+    }
+
+    
     /**
      * 
      */
@@ -171,6 +186,7 @@ public class BiisitGUIController implements Initializable{
         Kappale uusi = new Kappale();
         uusi.rekisteroi();
         uusi.vastaaSickoMode();
+        
         try {
             rekisteri.lisaa(uusi);
         } catch (SailoException ex) {
@@ -237,6 +253,9 @@ public class BiisitGUIController implements Initializable{
         os.println("----------------------------------------------");
         kappale.tulosta(os);
         os.println("----------------------------------------------");
+        List<Artisti> artistit = rekisteri.annaArtistit(kappale);
+        for (Artisti ar : artistit)
+            ar.tulosta(os);
     }
     
     

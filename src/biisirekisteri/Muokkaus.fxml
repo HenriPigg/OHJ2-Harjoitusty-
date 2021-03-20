@@ -23,8 +23,10 @@
             <HBox />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
+                <Button defaultButton="true" mnemonicParsing="false" text="Lisää artisti" />
+                <Button defaultButton="true" mnemonicParsing="false" text="Lisää levy-yhtiö" />                            
                 <Button defaultButton="true" mnemonicParsing="false" onAction="#handleDefaultOK" text="OK" />
-                  <Button cancelButton="true" mnemonicParsing="false" onAction="#handleDefaultCancel" text="Peruuta" />
+                <Button cancelButton="true" mnemonicParsing="false" onAction="#handleDefaultCancel" text="Peruuta" />
               </buttons>
                <padding>
                   <Insets right="10.0" />
@@ -53,6 +55,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label text="Kappaleen nimi" />
@@ -60,15 +63,31 @@
                   <Label text="Albumi" GridPane.rowIndex="2" />
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="3" />
                   <Label text="Genre" GridPane.rowIndex="4" />
-                  <Label text="Levy-yhtiö" GridPane.rowIndex="5" />
-                  <Label text="Striimaukset" GridPane.rowIndex="6" />
+                  <Label text="Levymyynnit" GridPane.rowIndex="5" />
+                  <Label text="Levy-yhtiö" GridPane.rowIndex="6" />
+                  <Label text="Striimaukset" GridPane.rowIndex="7" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
                   <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
+                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+                  <SplitMenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Travis Scott" />
+                      <MenuItem mnemonicParsing="false" text="Backstreet Boys" />
+                        <MenuItem mnemonicParsing="false" text="Oasis" />
+                    </items>
+                  </SplitMenuButton>
+                  <SplitMenuButton layoutX="112.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Creation Records" />
+                        <MenuItem mnemonicParsing="false" text="Cactus Jack Records" />
+                        <MenuItem mnemonicParsing="false" text="Epic Records" />
+                        <MenuItem mnemonicParsing="false" text="Jive" />
+                     </items>
+                  </SplitMenuButton>
                </children>
                <opaqueInsets>
                   <Insets left="10.0" top="10.0" />

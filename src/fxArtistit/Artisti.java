@@ -28,16 +28,33 @@ public class Artisti {
         Artisti eka = new Artisti();
         eka.rekisteroi();
         
-        eka.vastaaTravisScott();
+        eka.vastaaTravisScott(10);
         eka.tulosta(System.out);
     
     }
+    
 
+    /**
+     * Oletusmuodostaja
+     */
+    public Artisti() {
+        //
+    }
+    
+    
+    /**
+     * id muodostaja
+     * @param id artistin id
+     */
+    public Artisti(int id) {
+        this.artistiID = id;
+    }
+    
     
     /**
      * @return Artistin nimi
      */
-    public String getArtisti() {
+    public String getArtistiNimi() {
         return this.artistiNimi;
     }
     
@@ -64,12 +81,25 @@ public class Artisti {
     
     /**
      * Luodaan testiarvot artistille.
+     * @param nro Viite, jonka kappale saa
      */
-    public void vastaaTravisScott() {
-        this.artistiID = getArtistiID();
+    public void vastaaTravisScott(int nro) {
+        this.artistiID = nro;
         this.levyyhtioID = 1000;
         this.artistiNimi = "Travis Scott";
         this.aloitusvuosi = 2018;
+    }
+    
+    
+    /**
+     * Luodaan testiarvot artistille.
+     * @param nro -//-
+     */
+    public void vastaaOasis(int nro) {
+        this.artistiID = nro;
+        this.levyyhtioID = 1001;
+        this.artistiNimi = "Oasis";
+        this.aloitusvuosi = 2000;
     }
     
     
