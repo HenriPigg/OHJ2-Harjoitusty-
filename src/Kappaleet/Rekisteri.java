@@ -1,10 +1,10 @@
-package fxKappaleet;
+package Kappaleet;
 
 
 import java.util.List;
 
-import fxArtistit.Artisti;
-import fxArtistit.Artistit;
+import Artistit.Artisti;
+import Artistit.Artistit;
 
 /**
  * @author Joonas Ruuth & Henri Pigg
@@ -39,6 +39,16 @@ public class Rekisteri {
     public void lisaa(Kappale kappale) throws SailoException {
         kappaleet.lisaa(kappale);
     }
+    
+    
+    /**
+     * @param kappale Kappale, josta artisti id haetaan
+     * @return artisti id
+     */
+    public Artisti annaArtisti(Kappale kappale) {
+        return artistit.annaArtisti(kappale.getArtistiID());
+    }
+    
     
     
     /**

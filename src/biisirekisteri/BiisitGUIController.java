@@ -1,8 +1,14 @@
 package biisirekisteri;
 
 import java.net.URL;
-import java.util.List;
+//import java.util.List;
 import java.util.ResourceBundle;
+
+import Artistit.Artisti;
+import Kappaleet.Kappale;
+import Kappaleet.Rekisteri;
+import Kappaleet.SailoException;
+
 import java.io.PrintStream;
 
 
@@ -12,7 +18,6 @@ import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import fi.jyu.mit.fxgui.TextAreaOutputStream;
-import fxArtistit.Artisti;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,12 +25,6 @@ import javafx.scene.text.Font;
 import javafx.scene.control.TextArea;
 import fi.jyu.mit.fxgui.ListChooser;
 import javafx.scene.control.ScrollPane;
-
-
-import fxKappaleet.Kappale;
-//import fxKappaleet.Kappaleet;
-import fxKappaleet.SailoException;
-import fxKappaleet.Rekisteri;
 
 
 
@@ -147,7 +146,8 @@ public class BiisitGUIController implements Initializable{
         
         areaKappale.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKappale)){
-            kappaleKohdalla.tulosta(os);
+            //kappaleKohdalla.tulosta(os);
+            tulosta(os, kappaleKohdalla);
         }     
     }
     
@@ -253,9 +253,12 @@ public class BiisitGUIController implements Initializable{
         os.println("----------------------------------------------");
         kappale.tulosta(os);
         os.println("----------------------------------------------");
-        List<Artisti> artistit = rekisteri.annaArtistit(kappale);
+        Artisti artisti = rekisteri.annaArtisti(kappale);
+        artisti.tulosta(os);
+        /**List<Artisti> artistit = rekisteri.annaArtistit(kappale);
         for (Artisti ar : artistit)
             ar.tulosta(os);
+        */
     }
     
     

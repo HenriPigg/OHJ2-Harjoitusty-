@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fxArtistit;
+package Artistit;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fxKappaleet;
+package Kappaleet;
 
 /**
  * @author Joonas Ruuth & Henri Pigg

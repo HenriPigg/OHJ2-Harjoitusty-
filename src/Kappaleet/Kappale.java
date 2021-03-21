@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fxKappaleet;
+package Kappaleet;
 
 import java.io.*;
 

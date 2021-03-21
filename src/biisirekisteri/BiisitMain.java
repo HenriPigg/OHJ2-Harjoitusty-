@@ -1,12 +1,12 @@
 package biisirekisteri;
 
+import Kappaleet.Rekisteri;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
-import fxKappaleet.Rekisteri;
 
 /**
  * @author Joonas Ruuth & Henri Pigg

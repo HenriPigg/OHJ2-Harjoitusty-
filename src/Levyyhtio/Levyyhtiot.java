@@ -1,9 +1,9 @@
 /**
  * 
  */
-package fxLevyyhtio;
+package Levyyhtio;
 
-import fxKappaleet.SailoException;
+import Kappaleet.SailoException;
 
 /**
  * @author Joonas Ruuth & Henri Pigg

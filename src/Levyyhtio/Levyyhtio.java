@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fxLevyyhtio;
+package Levyyhtio;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

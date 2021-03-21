@@ -1,4 +1,4 @@
-package fxArtistit;
+package Artistit;
 
 import java.util.*;
 
@@ -57,6 +57,7 @@ public class Artistit implements Iterable<Artisti> {
     /**
      * @param nro Viite jota haetaan
      * @return Artistin oikealla id:llä
+     */
      
     public Artisti annaArtisti(int nro) {
         Artisti oikea = new Artisti();
@@ -65,7 +66,7 @@ public class Artistit implements Iterable<Artisti> {
         }      
         return oikea;
     }
-     */
+
     
     /**
      * 
