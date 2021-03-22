@@ -71,7 +71,7 @@
                   <Insets bottom="3.0" left="76.0" />
                </padding>
             </Label>
-                  <ListChooser fx:id="chooserKappaleet"  maxHeight="1.7976931348623157E308" prefHeight="100.0" rivit="SICKO MODE&#10;One&#10;I Want It That Way&#10;Wonderwall&#10;" BorderPane.alignment="CENTER" /> 
+                  <ListChooser fx:id="chooserKappaleet"  maxHeight="1.7976931348623157E308" prefHeight="100.0" BorderPane.alignment="CENTER" /> 
                </children>
             </VBox>
          </children>

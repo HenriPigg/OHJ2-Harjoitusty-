@@ -8,6 +8,7 @@ import Artistit.Artisti;
 import Kappaleet.Kappale;
 import Kappaleet.Rekisteri;
 import Kappaleet.SailoException;
+import Levyyhtio.Levyyhtio;
 
 import java.io.PrintStream;
 
@@ -84,9 +85,10 @@ public class BiisitGUIController implements Initializable{
     void handleLisaaKappale() {
         uusiKappale();
         uusiArtisti();
+        uusiYhtio();
 
     }
-    
+ 
 
     @FXML
     void handleApua() {
@@ -133,6 +135,7 @@ public class BiisitGUIController implements Initializable{
         
         chooserKappaleet.clear();
         chooserKappaleet.addSelectionListener(e -> naytaKappale());
+
     }
     
     
@@ -146,7 +149,6 @@ public class BiisitGUIController implements Initializable{
         
         areaKappale.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKappale)){
-            //kappaleKohdalla.tulosta(os);
             tulosta(os, kappaleKohdalla);
         }     
     }
@@ -167,6 +169,17 @@ public class BiisitGUIController implements Initializable{
         }
         chooserKappaleet.setSelectedIndex(index);
     }
+    
+    
+    private void uusiYhtio() {
+        if(kappaleKohdalla == null) return;
+        Levyyhtio levyyhtio = new Levyyhtio();
+        levyyhtio.rekisteroi();
+        levyyhtio.vastaaCreation(1000);
+        rekisteri.lisaa(levyyhtio);
+        hae(kappaleKohdalla.getKappaleId());
+        
+    }    
     
     
     private void uusiArtisti() {
@@ -255,6 +268,10 @@ public class BiisitGUIController implements Initializable{
         os.println("----------------------------------------------");
         Artisti artisti = rekisteri.annaArtisti(kappale);
         artisti.tulosta(os);
+        os.println("----------------------------------------------");
+
+        Levyyhtio levyhtio = rekisteri.annaYhtio(artisti);
+        levyhtio.tulosta(os);
         /**List<Artisti> artistit = rekisteri.annaArtistit(kappale);
         for (Artisti ar : artistit)
             ar.tulosta(os);

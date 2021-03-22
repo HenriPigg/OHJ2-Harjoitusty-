@@ -5,6 +5,8 @@ import java.util.List;
 
 import Artistit.Artisti;
 import Artistit.Artistit;
+import Levyyhtio.Levyyhtio;
+import Levyyhtio.Levyyhtiot;
 
 /**
  * @author Joonas Ruuth & Henri Pigg
@@ -14,6 +16,7 @@ import Artistit.Artistit;
 public class Rekisteri {
        private final Kappaleet kappaleet = new Kappaleet();
        private final Artistit artistit = new Artistit();
+       private final Levyyhtiot yhtiot = new Levyyhtiot();
        
        
        /**
@@ -22,6 +25,15 @@ public class Rekisteri {
     public int getKappaleet() {
            return kappaleet.getLkm();
        }
+    
+    
+    /**
+     * @param yhtio Lisättävä levy-yhtiö
+     */
+    public void lisaa(Levyyhtio yhtio) {
+        yhtiot.lisaa(yhtio);
+    }
+    
     
     
     /**
@@ -38,6 +50,24 @@ public class Rekisteri {
      */
     public void lisaa(Kappale kappale) throws SailoException {
         kappaleet.lisaa(kappale);
+    }
+    
+    
+    /**
+     * @param artisti Artisti, jolta levy-yhtio id haetaan
+     * @return Artistin levy-yhtiö
+     */
+    public Levyyhtio annaYhtio(Artisti artisti) {
+        return yhtiot.annaYhtio(artisti.getLevyyhtioID());
+    }
+    
+    
+    /**
+     * @param artisti Artisti, jonka levy-yhtiötä etsitään
+     * @return Artistin levy-yhtio
+     */
+    public List<Levyyhtio> annaYhtiot(Artisti artisti) {
+        return yhtiot.annaYhtiot(artisti.getLevyyhtioID());
     }
     
     
@@ -100,6 +130,14 @@ public class Rekisteri {
             rekisteri.lisaa(travis);
             rekisteri.lisaa(oasis);
             
+            int yID1 = travis.getLevyyhtioID();
+            
+            Levyyhtio creation = new Levyyhtio(yID1);
+            
+            creation.vastaaCreation(1000);
+            
+            rekisteri.lisaa(creation);
+            
             System.out.println("============= Rekisterin testi =================");
             
             
@@ -116,6 +154,10 @@ public class Rekisteri {
                 for (Artisti ar : artistit)
                     ar.tulosta(System.out);
 
+                System.out.println("---------- Tästä eteenpäin levy-yhtiön tulostus ----------");
+                List<Levyyhtio> yhtiot = rekisteri.annaYhtiot(travis);
+                for(Levyyhtio yhtio : yhtiot)
+                    yhtio.tulosta(System.out);
             }
 
         } catch (SailoException ex) {

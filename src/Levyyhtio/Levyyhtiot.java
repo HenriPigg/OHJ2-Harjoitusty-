@@ -3,21 +3,23 @@
  */
 package Levyyhtio;
 
-import Kappaleet.SailoException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+
 
 /**
  * @author Joonas Ruuth & Henri Pigg
  * @version 19.3.2021
  *
  */
-public class Levyyhtiot {
-    
-    private static final int MAX_LEVYYHTIOT = 10;
-    private int lkm = 0;
-    
-    private Levyyhtio alkiot[] = new Levyyhtio[MAX_LEVYYHTIOT];
+public class Levyyhtiot implements Iterable<Levyyhtio> {
     
     
+    private final Collection<Levyyhtio> alkiot = new ArrayList<Levyyhtio>();
+
     /**
      * Oletusmuodostaja
      */
@@ -27,33 +29,56 @@ public class Levyyhtiot {
 
     
     /**
-     * @param levyyhtio Lisättävän levy-yhtiön viite
-     * @throws SailoException jos tietorakenne on täynnä
+     * @param yhtio Lisättävä levy-yhtiö
      */
-    public void lisaa(Levyyhtio levyyhtio) throws SailoException {
-        if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");
-        alkiot[lkm] = levyyhtio;
-        lkm++;
+    public void lisaa(Levyyhtio yhtio) {
+        alkiot.add(yhtio);
     }
     
     
     /**
-     * @param i Monennes menossa
-     * @return viite levy-yhtiöön indeksissä i
-     * @throws IndexOutOfBoundsException Jos i on yli sallitun rajan
-     */
-    public Levyyhtio anna(int i) throws IndexOutOfBoundsException{
-        if (i < 0 || lkm <= i)
-            throw new IndexOutOfBoundsException("Ei sallittu indeksi: " + i);
-        return alkiot[i];
-    }
-    
-    
-    /**
-     * @return lkm
+     * @return Levy-yhtiöiden lukumäärä tietorakenteessa
      */
     public int getLkm() {
-        return this.lkm;
+        return alkiot.size();
+    }
+    
+    
+    /**
+     * Iteraattori kaikkien artistien läpikäymiseen
+     * @return artistiiteraattori
+     * 
+     */
+    @Override
+    public Iterator<Levyyhtio> iterator() {
+        return alkiot.iterator();
+    }
+    
+    
+    /**
+     * @param nro Id jota haetaan
+     * @return oikean id:n omaava levy-yhtiö
+     */
+    public Levyyhtio annaYhtio(int nro) {
+        Levyyhtio oikea = new Levyyhtio();
+        for(Levyyhtio yhtio : alkiot) {
+            if(yhtio.getLevyyhtioID() == nro) oikea = yhtio;
+        }
+        
+        return oikea;
+    }
+    
+    
+    /**
+     * 
+     * @param nro Numero, jota verrataan levy-yhtiön id:seen 
+     * @return tietorakenne jossa viiteet löydetteyihin levy-yhtiöihin
+     */
+    public List<Levyyhtio> annaYhtiot(int nro) {
+        List<Levyyhtio> loydetyt = new ArrayList<Levyyhtio>();
+        for (Levyyhtio yhtio : alkiot)
+            if(yhtio.getLevyyhtioID() == nro) loydetyt.add(yhtio);
+        return loydetyt;
     }
     
     
@@ -64,29 +89,22 @@ public class Levyyhtiot {
         Levyyhtiot levyyhtiot = new Levyyhtiot();
         
         Levyyhtio creation = new Levyyhtio(); 
-        Levyyhtio creation2 = new Levyyhtio();
         
-        creation.rekisteroi();
-        creation2.rekisteroi();
         
-        creation.vastaaCreation();
-        creation2.vastaaCreation();
+        levyyhtiot.lisaa(creation);
         
-        try {
-            levyyhtiot.lisaa(creation);
-            levyyhtiot.lisaa(creation2);
+        
+        creation.vastaaCreation(1000);
+        
+        
             System.out.println("============= Levy-yhtiöt testi =================");
             
-            for (int i = 0; i < levyyhtiot.getLkm(); i++) {
-                Levyyhtio levyyhtio = levyyhtiot.anna(i);
-                System.out.println("Levy-yhtiö numero " + i);
-                levyyhtio.tulosta(System.out);
-            }
-
-        } catch (SailoException ex) {
-            System.out.println(ex.getMessage());
-        }
+        List<Levyyhtio> yhtiot = levyyhtiot.annaYhtiot(1000);
         
+        for (Levyyhtio ly : yhtiot) {
+            System.out.print(ly);
+            ly.tulosta(System.out);
+        }
         
     
     }

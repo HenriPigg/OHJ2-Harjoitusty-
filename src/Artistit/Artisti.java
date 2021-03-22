@@ -60,6 +60,15 @@ public class Artisti {
     
     
     /**
+     * @return palauttaa levy-yhtiön id:n
+     */
+    public int getLevyyhtioID() {
+        return this.levyyhtioID;
+    }
+    
+    
+    
+    /**
      * @return Haetun artistin ID
      */
     public int getArtistiID() {

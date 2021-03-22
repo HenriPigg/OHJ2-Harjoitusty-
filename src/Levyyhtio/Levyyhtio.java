@@ -27,11 +27,28 @@ public class Levyyhtio {
         Levyyhtio eka = new Levyyhtio();
         
         eka.rekisteroi();
-        eka.vastaaCreation();
+        eka.vastaaCreation(1000);
         eka.tulosta(System.out);
         
     }
 
+    
+    /**
+     *  Oletusmuodostaja
+     */
+    public Levyyhtio() {
+        //
+    }
+    
+    
+    /**
+     *  Oletusmuodostaja
+     * @param id Levy-yhtiölle annettava id
+     */
+    public Levyyhtio(int id) {
+        this.levyyhtioID = id;
+    }   
+    
     
     /**
      * @return Levy-yhtiön nimi
@@ -80,9 +97,10 @@ public class Levyyhtio {
     
     /**
      * Testiarvot
+     * @param nro Annettava esimerkki id
      */
-    public void vastaaCreation() {
-        this.levyyhtioID = getLevyyhtioID();
+    public void vastaaCreation(int nro) {
+        this.levyyhtioID = nro;
         this.levyyhtio = "Creation Records";
         this.perustamisvuosi = 2013;
     }

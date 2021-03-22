@@ -97,6 +97,7 @@ public class Artistit implements Iterable<Artisti> {
 
         System.out.println("============= Artistit testi =================");
 
+        
         List<Artisti> artistit2 = harrasteet.annaArtistit(10);
         List<Artisti> artistit3 = harrasteet.annaArtistit(20);
 
