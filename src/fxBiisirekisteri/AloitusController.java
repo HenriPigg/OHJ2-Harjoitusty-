@@ -1,7 +1,7 @@
 /**
  * 
  */
-package biisirekisteri;
+package fxBiisirekisteri;
 
 
 import fi.jyu.mit.fxgui.ModalController;

@@ -1,4 +1,4 @@
-package biisirekisteri;
+package fxBiisirekisteri;
 
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalControllerInterface;

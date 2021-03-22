@@ -1,4 +1,4 @@
-package biisirekisteri;
+package fxBiisirekisteri;
 
 import Kappaleet.Rekisteri;
 import javafx.application.Application;

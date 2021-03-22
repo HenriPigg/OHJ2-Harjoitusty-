@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biisirekisteri.BiisitGUIController">
+<BorderPane prefHeight="370.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxBiisirekisteri.BiisitGUIController">
    <top>
       <MenuBar prefHeight="17.0" prefWidth="485.0" BorderPane.alignment="CENTER">
         <menus>

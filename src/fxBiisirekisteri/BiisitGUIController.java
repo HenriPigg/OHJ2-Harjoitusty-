@@ -1,4 +1,4 @@
-package biisirekisteri;
+package fxBiisirekisteri;
 
 import java.net.URL;
 //import java.util.List;
