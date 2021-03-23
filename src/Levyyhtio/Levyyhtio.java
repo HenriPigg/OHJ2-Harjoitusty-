@@ -13,7 +13,7 @@ import java.io.PrintStream;
  */
 public class Levyyhtio {
 
-    private int levyyhtioID;
+    private int levyyhtioID = 0;
     private String levyyhtio;
     private int perustamisvuosi;
     
@@ -86,6 +86,13 @@ public class Levyyhtio {
 
     /**
      * @return rekisterointi
+     * @example
+     * <pre name="test">
+     * Levyyhtio l = new Levyyhtio();
+     * l.getLevyyhtioID() === 0;
+     * l.rekisteroi();
+     * l.getLevyyhtioID() === 1000;
+     * </pre>
      */
     public int rekisteroi() {
         this.levyyhtioID = seuraavaNro;

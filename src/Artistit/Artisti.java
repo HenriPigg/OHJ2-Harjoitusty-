@@ -13,7 +13,7 @@ import java.io.PrintStream;
  */
 public class Artisti {
 
-    private int artistiID;
+    private int artistiID = 0;
     private int levyyhtioID;
     private String artistiNimi;
     private int aloitusvuosi;
@@ -78,6 +78,13 @@ public class Artisti {
 
     /**
      * @return rekisteröidyn artistin
+     * @example
+     * <pre name="test">
+     *  Artisti ar = new Artisti();
+     *  ar.getArtistiID() === 0;
+     *  ar.rekisteroi();
+     *  ar.getArtistiID() === 99;
+     * </pre>
      */
     public int rekisteroi() {
         this.artistiID = seuraavaNro;

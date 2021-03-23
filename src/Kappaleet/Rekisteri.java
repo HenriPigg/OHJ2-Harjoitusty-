@@ -47,6 +47,17 @@ public class Rekisteri {
     /**
      * @param kappale Lisättävä kappale
      * @throws SailoException Jos kappaletta ei voida lisätä
+     * @example
+     * <pre name="test">
+     *  #THROWS SailoException
+     *  Rekisteri r = new Rekisteri();
+     *  Kappale k1 = new Kappale(); 
+     *  Kappale k2 = new Kappale();
+     *  k1.rekisteroi(); k2.rekisteroi();
+     *  r.getKappaleet() === 0;
+     *  r.lisaa(k1); r.getKappaleet() === 1;
+     *  r.lisaa(k2); r.getKappaleet() === 2;
+     * </pre>
      */
     public void lisaa(Kappale kappale) throws SailoException {
         kappaleet.lisaa(kappale);
@@ -84,6 +95,25 @@ public class Rekisteri {
     /**
      * @param kappale Kappale, jolle artisti haetaan
      * @return Kappaleen artisti
+     * @example
+     * <pre name="test">
+     *  #import java.util.*;
+     *  #import Artistit.Artisti;
+     *  Rekisteri r = new Rekisteri();
+     *  Kappale k1 = new Kappale(), k2 = new Kappale();
+     *  k1.rekisteroi(); k2.rekisteroi();
+     *  int id1 = k1.getArtistiID();
+     *  int id2 = 20;
+     *  
+     *  Artisti a1 = new Artisti(id1); r.lisaa(a1);
+     *  Artisti a2 = new Artisti(id2); r.lisaa(a2);
+     *  
+     *  List<Artisti> loytyneet;
+     *  loytyneet = r.annaArtistit(k1);
+     *  loytyneet.size() === 1;
+     *  loytyneet = r.annaArtistit(k2);
+     *  loytyneet.size() === 1;
+     * </pre>
      */
     public List<Artisti> annaArtistit(Kappale kappale) {
       return artistit.annaArtistit(kappale.getArtistiID());

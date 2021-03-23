@@ -35,6 +35,15 @@ public class Kappaleet {
     /**
      * @param kappale Lisättävän kappaleen viite
      * @throws SailoException jos tietorakenne on täynnä
+     * @example
+     * <pre name="test">
+     *  #THROWS SailoException 
+     *  Kappaleet kt = new Kappaleet();
+     *  Kappale k1 = new Kappale(), k2 = new Kappale();
+     *  kt.getLkm() === 0;
+     *  kt.lisaa(k1); kt.getLkm() === 1; 
+     *  kt.lisaa(k2); kt.getLkm() === 2;
+     * </pre>
      */
     public void lisaa(Kappale kappale) throws SailoException {
         if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");

@@ -4,9 +4,9 @@ import java.util.*;
 
 
 /**
- * Kerhon harrastukset, joka osaa mm. lisätä uuden harrastuksen
+ * Kappaleen artisti, joka osaa mm. lisätä uuden artistin
  *
- * @author Vesa Lappalainen
+ * @author Joonas Ruuth & Henri Pigg
  * @version 1.0, 22.02.2003
  */
 public class Artistit implements Iterable<Artisti> {
@@ -46,7 +46,22 @@ public class Artistit implements Iterable<Artisti> {
     /**
      * Iteraattori kaikkien artistien läpikäymiseen
      * @return artistiiteraattori
-     * 
+     * @example
+     * <pre name="test">
+     *  #PACKAGEIMPORT
+     *  #import java.util.*;
+     *  
+     *  Artistit ar = new Artistit();
+     *  Artisti a1 = new Artisti(10);
+     *  Artisti a2 = new Artisti(11);
+     *  ar.lisaa(a1);
+     *  ar.lisaa(a2);
+     *  
+     *  Iterator<Artisti> i2 = ar.iterator();
+     *  i2.next() === a1;
+     *  i2.next() === a2;
+     *  
+     * </pre>
      */
     @Override
     public Iterator<Artisti> iterator() {
@@ -72,6 +87,19 @@ public class Artistit implements Iterable<Artisti> {
      * 
      * @param nro Numero, jota verrataan artisti id:seen 
      * @return tietorakenne jossa viiteet löydetteyihin artisteihin
+     * 
+     * @example
+     * <pre name="test">
+     *  #import java.util.*;
+     *  
+     *  Artistit ar = new Artistit();
+     *  Artisti a1 = new Artisti(10); ar.lisaa(a1);
+     *  Artisti a2 = new Artisti(10); ar.lisaa(a2);
+     *  
+     *  List<Artisti> loytyneet;
+     *  loytyneet = ar.annaArtistit(10);
+     *  loytyneet.size() === 2;
+     * </pre>
      */
     public List<Artisti> annaArtistit(int nro) {
         List<Artisti> loydetyt = new ArrayList<Artisti>();
@@ -82,7 +110,7 @@ public class Artistit implements Iterable<Artisti> {
 
 
     /**
-     * Testiohjelma harrastuksille
+     * Testiohjelma artisteille
      * @param args ei käytössä
      */
     public static void main(String[] args) {

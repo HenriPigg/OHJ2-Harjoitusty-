@@ -47,6 +47,21 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
     /**
      * Iteraattori kaikkien artistien läpikäymiseen
      * @return artistiiteraattori
+     * * <pre name="test">
+     *  #PACKAGEIMPORT
+     *  #import java.util.*;
+     *  
+     *  Levyyhtiot ar = new Levyyhtiot();
+     *  Levyyhtio a1 = new Levyyhtio(1000);
+     *  Levyyhtio a2 = new Levyyhtio(1001);
+     *  ar.lisaa(a1);
+     *  ar.lisaa(a2);
+     *  
+     *  Iterator<Levyyhtio> i2 = ar.iterator();
+     *  i2.next() === a1;
+     *  i2.next() === a2;
+     *  
+     * </pre>
      * 
      */
     @Override

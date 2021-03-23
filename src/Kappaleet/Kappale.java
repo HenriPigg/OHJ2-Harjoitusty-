@@ -43,6 +43,12 @@ public class Kappale {
     
     /**
      * @return Kappaleen nimi
+     * @example
+     * <pre name="test">
+     * Kappale kappale = new Kappale();
+     * kappale.vastaaSickoMode();
+     * kappale.getKappaleenNimi() === "SICKO MODE";
+     * </pre>
      */
     public String getKappaleenNimi() {
         return this.kappaleenNimi;
@@ -51,6 +57,7 @@ public class Kappale {
     
     /**
      * @return Haetun kappaleen id numeron
+     *
      */
     public int getKappaleId() {
         return kappaleId;
@@ -117,6 +124,13 @@ public class Kappale {
     
     /**
      * @return Generoidun kappaleId:n
+     * @example
+     * <pre name="test">
+     *  Kappale k = new Kappale();
+     *  k.getKappaleId() === 0;
+     *  k.rekisteroi();
+     *  k.getKappaleId() === 1;
+     * </pre>
      */
     public int rekisteroi() {
         this.kappaleId = seuraavaNro;
