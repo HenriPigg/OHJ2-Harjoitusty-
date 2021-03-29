@@ -1,6 +1,8 @@
 package Kappaleet;
 
 
+import java.io.*;
+import java.util.Collection;
 import java.util.List;
 
 import Artistit.Artisti;
@@ -14,12 +16,23 @@ import Levyyhtio.Levyyhtiot;
  *
  */
 public class Rekisteri {
-       private final Kappaleet kappaleet = new Kappaleet();
-       private final Artistit artistit = new Artistit();
-       private final Levyyhtiot yhtiot = new Levyyhtiot();
+       private Kappaleet kappaleet = new Kappaleet();
+       private Artistit artistit = new Artistit();
+       private Levyyhtiot yhtiot = new Levyyhtiot();
        
        
-       /**
+       
+    /**
+     * Poistaa kappaleista ja artisteista ne joilla on nro. KESKEN!!
+     * @param nro viitenumero, jonka mukaan poistetaan.
+     * @return montako kappaletta poistettiin
+     */
+    public int poista(@SuppressWarnings("unused") int nro) {
+        return 0;
+    }
+    
+       
+     /**
      * @return Palauttaa rekisterin kappaleiden lukumäärän
      */
     public int getKappaleet() {
@@ -44,6 +57,18 @@ public class Rekisteri {
     }
     
     
+    /** 
+     * Palauttaa "taulukossa" hakuehtoon vastaavien kappaleiden viitteet 
+     * @param hakuehto hakuehto  
+     * @param k etsittävän kentän indeksi  
+     * @return tietorakenteen löytyneistä kappaleista 
+     * @throws SailoException Jos jotakin menee väärin
+     */ 
+    public Collection<Kappale> etsi(String hakuehto, int k) throws SailoException {
+        return kappaleet.etsi(hakuehto, k);
+    }
+    
+    
     /**
      * @param kappale Lisättävä kappale
      * @throws SailoException Jos kappaletta ei voida lisätä
@@ -62,6 +87,67 @@ public class Rekisteri {
     public void lisaa(Kappale kappale) throws SailoException {
         kappaleet.lisaa(kappale);
     }
+    
+    
+    /**
+     * Asettaa tiedostojen perusnimet
+     * @param nimi uusi nimi
+     */
+    public void setTiedosto(String nimi) {
+        File dir = new File(nimi);
+        dir.mkdirs();
+        String hakemistonNimi = "";
+        if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
+        kappaleet.setTiedostonPerusNimi(hakemistonNimi + "nimet");
+        artistit.setTiedostonPerusNimi(hakemistonNimi + "artistit");
+        yhtiot.setTiedostonPerusNimi(hakemistonNimi + "levyyhtiot");
+    }
+
+    
+    /**
+     * @param nimi jota käytetään lukemisessa
+     * @throws SailoException Jos jotain menee väärin
+     */
+    public void lueTiedostosta(String nimi) throws SailoException {
+        kappaleet = new Kappaleet(); // jos luetaan olemassa olevaan niin helpoin tyhjentää näin
+        artistit = new Artistit();
+        yhtiot = new Levyyhtiot();
+
+        setTiedosto(nimi);
+        kappaleet.lueTiedostosta();
+        artistit.lueTiedostosta();
+        yhtiot.lueTiedostosta();
+    }
+
+    
+    /**
+     * Tallenttaa kerhon tiedot tiedostoon.  
+     * Vaikka jäsenten tallettamien epäonistuisi, niin yritetään silti tallettaa
+     * harrastuksia ennen poikkeuksen heittämistä.
+     * @throws SailoException jos tallettamisessa ongelmia
+     */
+    public void tallenna() throws SailoException {
+        String virhe = "";
+        try {
+            kappaleet.tallenna();
+        } catch ( SailoException ex ) {
+            virhe = ex.getMessage();
+        }
+
+        try {
+            artistit.tallenna();
+        } catch ( SailoException ex ) {
+            virhe += ex.getMessage();
+        }
+        
+        try {
+            yhtiot.tallenna();
+        } catch ( SailoException ex ) {
+            virhe += ex.getMessage();
+        }
+        if ( !"".equals(virhe) ) throw new SailoException(virhe);
+    }
+
     
     
     /**
@@ -102,17 +188,12 @@ public class Rekisteri {
      *  Rekisteri r = new Rekisteri();
      *  Kappale k1 = new Kappale(), k2 = new Kappale();
      *  k1.rekisteroi(); k2.rekisteroi();
-     *  int id1 = k1.getArtistiID();
-     *  int id2 = 20;
-     *  
-     *  Artisti a1 = new Artisti(id1); r.lisaa(a1);
-     *  Artisti a2 = new Artisti(id2); r.lisaa(a2);
+     *  Artisti a1 = new Artisti(); r.lisaa(a1);
+     *  Artisti a2 = new Artisti(); r.lisaa(a2);
      *  
      *  List<Artisti> loytyneet;
      *  loytyneet = r.annaArtistit(k1);
-     *  loytyneet.size() === 1;
-     *  loytyneet = r.annaArtistit(k2);
-     *  loytyneet.size() === 1;
+     *  loytyneet.size() === 2;
      * </pre>
      */
     public List<Artisti> annaArtistit(Kappale kappale) {
@@ -148,11 +229,9 @@ public class Rekisteri {
             rekisteri.lisaa(sicko1);
             rekisteri.lisaa(wonder);
 
-            int id1 = sicko1.getArtistiID();
-            int id2 = wonder.getArtistiID();
-            
-            Artisti travis = new Artisti(id1);
-            Artisti oasis = new Artisti(id2);
+          
+            Artisti travis = new Artisti();
+            Artisti oasis = new Artisti();
             
             travis.vastaaTravisScott(10);
             oasis.vastaaOasis(20);
@@ -160,9 +239,8 @@ public class Rekisteri {
             rekisteri.lisaa(travis);
             rekisteri.lisaa(oasis);
             
-            int yID1 = travis.getLevyyhtioID();
             
-            Levyyhtio creation = new Levyyhtio(yID1);
+            Levyyhtio creation = new Levyyhtio();
             
             creation.vastaaCreation(1000);
             

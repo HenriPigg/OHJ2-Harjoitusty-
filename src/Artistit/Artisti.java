@@ -6,6 +6,8 @@ package Artistit;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import fi.jyu.mit.ohj2.Mjonot;
+
 /**
  * @author Joonas Ruuth & Henri Pigg
  * @version 18.3.2021
@@ -13,12 +15,12 @@ import java.io.PrintStream;
  */
 public class Artisti {
 
-    private int artistiID = 0;
+    private int artistiID;
     private int levyyhtioID;
     private String artistiNimi;
     private int aloitusvuosi;
     
-    private static int seuraavaNro = 99;
+    private static int seuraavaNro = 1;
 
     
     /**
@@ -39,15 +41,6 @@ public class Artisti {
      */
     public Artisti() {
         //
-    }
-    
-    
-    /**
-     * id muodostaja
-     * @param id artistin id
-     */
-    public Artisti(int id) {
-        this.artistiID = id;
     }
     
     
@@ -83,7 +76,7 @@ public class Artisti {
      *  Artisti ar = new Artisti();
      *  ar.getArtistiID() === 0;
      *  ar.rekisteroi();
-     *  ar.getArtistiID() === 99;
+     *  ar.getArtistiID() === 1;
      * </pre>
      */
     public int rekisteroi() {
@@ -139,4 +132,56 @@ public class Artisti {
         out.println(String.format("%d", this.aloitusvuosi));
     }
 
+    @Override
+    public String toString() {
+        return "" + getArtistiID() + "|" + this.levyyhtioID + "|" + this.artistiNimi + "|" + this.aloitusvuosi;
+    }
+    
+    
+    /**
+     * Selvitää harrastuksen tiedot | erotellusta merkkijonosta.
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusnro.
+     * @param rivi josta harrastuksen tiedot otetaan
+     * @example
+     * <pre name="test">
+     *   Artisti artisti = new Artisti();
+     *   artisti.parse("   1   |  10  |   Travis Scott  | 2013");
+     *   artisti.getArtistiID() === 1;
+     *   artisti.toString()    === "1|10|Travis Scott|2013";
+     *   
+     *   artisti.rekisteroi();
+     *   int n = artisti.getArtistiID();
+     *   artisti.parse(""+(n+20));
+     *   artisti.rekisteroi();
+     *   artisti.getArtistiID() === n+20+1;
+     *   artisti.toString()     === "" + (n+20+1) + "|10|Travis Scott|2013";
+     * </pre>
+     */
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        setArtistiID(Mjonot.erota(sb, '|', getArtistiID()));
+        this.levyyhtioID = Mjonot.erota(sb, '|', levyyhtioID);
+        this.artistiNimi = Mjonot.erota(sb, '|', artistiNimi);
+        aloitusvuosi = Mjonot.erota(sb, '|', aloitusvuosi);
+    }
+    
+    
+    private void setArtistiID(int nro) {
+        this.artistiID = nro;
+        if (artistiID >= seuraavaNro) seuraavaNro = artistiID + 1;
+    }
+    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        return this.toString().equals(obj.toString());
+    }
+    
+    
+    @Override
+    public int hashCode() {
+        return this.artistiID;
+    }
+    
 }

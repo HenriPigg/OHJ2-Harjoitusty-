@@ -6,6 +6,8 @@ package Levyyhtio;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import fi.jyu.mit.ohj2.Mjonot;
+
 /**
  * @author Joonas Ruuth & Henri Pigg
  * @version 18.3.2021
@@ -17,7 +19,7 @@ public class Levyyhtio {
     private String levyyhtio;
     private int perustamisvuosi;
     
-    private static int seuraavaNro = 1000;
+    private static int seuraavaNro = 1;
     
     /**
      * @param args Ei käytössä
@@ -41,13 +43,6 @@ public class Levyyhtio {
     }
     
     
-    /**
-     *  Oletusmuodostaja
-     * @param id Levy-yhtiölle annettava id
-     */
-    public Levyyhtio(int id) {
-        this.levyyhtioID = id;
-    }   
     
     
     /**
@@ -91,7 +86,7 @@ public class Levyyhtio {
      * Levyyhtio l = new Levyyhtio();
      * l.getLevyyhtioID() === 0;
      * l.rekisteroi();
-     * l.getLevyyhtioID() === 1000;
+     * l.getLevyyhtioID() === 1;
      * </pre>
      */
     public int rekisteroi() {
@@ -112,4 +107,55 @@ public class Levyyhtio {
         this.perustamisvuosi = 2013;
     }
 
+    
+    @Override
+    public String toString() {
+        return "" + getLevyyhtioID() + "|" + this.levyyhtio + "|" + this.perustamisvuosi;
+    }
+    
+    
+    /**
+     * Selvitää harrastuksen tiedot | erotellusta merkkijonosta.
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusnro.
+     * @param rivi josta harrastuksen tiedot otetaan
+     * @example
+     * <pre name="test">
+     *   Levyyhtio yhtio = new Levyyhtio();
+     *   yhtio.parse("   1   |  Creation Records  | 2013");
+     *   yhtio.getLevyyhtioID() === 1;
+     *   yhtio.toString()    === "1|Creation Records|2013";
+     *   
+     *   yhtio.rekisteroi();
+     *   int n = yhtio.getLevyyhtioID();
+     *   yhtio.parse(""+(n+20));
+     *   yhtio.rekisteroi();
+     *   yhtio.getLevyyhtioID() === n+20+1;
+     *   yhtio.toString()     === "" + (n+20+1) + "|Creation Records|2013";
+     * </pre>
+     */
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        setLevyyhtioID(Mjonot.erota(sb, '|', getLevyyhtioID()));
+        this.levyyhtio = Mjonot.erota(sb, '|', levyyhtio);
+        this.perustamisvuosi = Mjonot.erota(sb, '|', perustamisvuosi);
+    }
+    
+    
+    private void setLevyyhtioID(int nro) {
+        this.levyyhtioID = nro;
+        if (this.levyyhtioID >= seuraavaNro) seuraavaNro = levyyhtioID + 1;
+    }
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        return this.toString().equals(obj.toString());
+    }
+    
+    
+    @Override
+    public int hashCode() {
+        return this.levyyhtioID;
+    }
 }

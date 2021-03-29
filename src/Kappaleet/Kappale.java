@@ -5,6 +5,8 @@ package Kappaleet;
 
 import java.io.*;
 
+import fi.jyu.mit.ohj2.Mjonot;
+
 
 /**
  * @author Joonas Ruuth & Henri Pigg
@@ -136,6 +138,82 @@ public class Kappale {
         this.kappaleId = seuraavaNro;
         seuraavaNro++;
         
+        return this.kappaleId;
+    }
+    
+    
+    /**
+     * Palauttaa kappaleen tiedot merkkijonona jonka voi tallentaa tiedostoon.
+     * @return kappale tolppaeroteltuna merkkijonona 
+     * @example
+     * <pre name="test">
+     *   Kappale kappale = new Kappale();
+     *   kappale.parse("   3  |  1   | SICKO MODE");
+     *   kappale.toString().startsWith("3|1|SICKO MODE|") === true; // on enemmäkin kuin 3 kenttää, siksi loppu |
+     * </pre>  
+     */
+    @Override
+    public String toString() {
+        return "" +
+                getKappaleId() + "|" +
+                this.artistiID + "|" +
+                this.kappaleenNimi + "|" +
+                this.albumi + "|" +
+                this.julkaisuvuosi + "|" +
+                this.genre + "|" +
+                this.kuuntelukerrat;
+    }
+
+    
+    private void setKappaleId(int nro) {
+        this.kappaleId = nro;
+        if(this.kappaleId >= seuraavaNro) seuraavaNro = this.kappaleId + 1;
+    }
+    
+    
+    
+    /**
+     * Selvittää kappaleen tiedot
+     * @param rivi rivi josta kappaleen tiedot otetaan
+     * 
+     * 
+     * @example
+     * <pre name="test">
+     *   Kappale kappale = new Kappale();
+     *   kappale.parse("   3  |  1 | SICKO MODE");
+     *   kappale.getKappaleId() === 3;
+     *   kappale.toString().startsWith("3|1|SICKO MODE|") === true; // on enemmäkin kuin 3 kenttää, siksi loppu |
+     *
+     *   kappale.rekisteroi();
+     *   int n = jasen.getKappaleId();
+     *   kappale.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
+     *   kappale.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
+     *   kappale.getKappaleId() === n+20+1;
+     *     
+     * </pre>
+
+     */
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        setKappaleId(Mjonot.erota(sb, '|', getKappaleId()));
+        artistiID = Mjonot.erota(sb, '|', artistiID);
+        kappaleenNimi = Mjonot.erota(sb, '|', kappaleenNimi);
+        albumi = Mjonot.erota(sb, '|', albumi);
+        julkaisuvuosi = Mjonot.erota(sb, '|', julkaisuvuosi);
+        genre = Mjonot.erota(sb, '|', genre);
+        kuuntelukerrat = Mjonot.erota(sb, '|', kuuntelukerrat);
+    }
+
+    
+    @Override
+    public boolean equals(Object kappale) {
+        if(kappale == null) return false;
+        return this.toString().equals(kappale.toString());
+    }
+    
+    
+    @Override
+    public int  hashCode() {
         return this.kappaleId;
     }
     
