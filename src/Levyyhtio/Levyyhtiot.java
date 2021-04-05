@@ -133,7 +133,7 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
      * @return tallennustiedoston nimi
      */
     public String getTiedostonNimi() {
-        return this.tiedostonNimi + ".dat";
+        return this.tiedostonNimi + ".txt";
     }
 
 

@@ -34,7 +34,11 @@ public class BiisitMain extends Application {
             biisitCtrl.setRekisteri(rekisteri);
         
         primaryStage.show();
-        if ( !biisitCtrl.avaa() ) Platform.exit();
+        Application.Parameters params = getParameters();
+        if(params.getRaw().size() > 0)
+            biisitCtrl.lueTiedosto(params.getRaw().get(0));
+        else
+            if ( !biisitCtrl.avaa() ) Platform.exit();
     } catch(Exception e) {
         e.printStackTrace();
     }

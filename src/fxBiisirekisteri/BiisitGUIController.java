@@ -1,6 +1,7 @@
 package fxBiisirekisteri;
 
 import java.net.URL;
+import java.util.Collection;
 //import java.util.List;
 import java.util.ResourceBundle;
 
@@ -45,7 +46,7 @@ public class BiisitGUIController implements Initializable{
 
 
     
-    private String listannimi = "Hittibiisit";
+    //private String listannimi = "Hittibiisit";
 
     
     @Override
@@ -54,20 +55,18 @@ public class BiisitGUIController implements Initializable{
     }
 
     
-    @FXML
-    void handleTallenna() {
-        Dialogs.showMessageDialog("Ei osata vielä tallentaa :(");
+    
+    @FXML private void handleTallenna() {
+        tallenna();
     }
     
     
     @FXML private void handleHakuehto() {
-        String hakukentta = cbKentat.getSelectedText();
-        String ehto = hakuehto.getText(); 
-        if ( ehto.isEmpty() )
-            naytaVirhe(null);
-        else
-            naytaVirhe("Ei osata vielä hakea " + hakukentta + ": " + ehto);
+        if ( kappaleKohdalla != null )
+            hae(kappaleKohdalla.getKappaleId()); 
+
     }
+
 
     
     @FXML private void handleSulje() {
@@ -77,19 +76,27 @@ public class BiisitGUIController implements Initializable{
     
     
     @FXML private void handleAvaa() {
-        Dialogs.showMessageDialog("Ei osata vielä lisätä :(");
+        avaa();
     }
 
     
     @FXML
     void handleLisaaKappale() {
         uusiKappale();
-        uusiArtisti();
-        uusiYhtio();
-
     }
  
 
+    @FXML
+    void handleLisaaArtisti() {
+        uusiArtisti();
+    }
+    
+    
+    @FXML
+    void handleLisaaYhtio() {
+        uusiYhtio();
+    }
+    
     @FXML
     void handleApua() {
         Dialogs.showMessageDialog("Ei osata vielä antaa apua :(");
@@ -103,23 +110,23 @@ public class BiisitGUIController implements Initializable{
 
 
     @FXML private void handleNaytaArtistit() {
-        ModalController.showModal(BiisitGUIController.class.getResource("LisaaArtisti.fxml"), listannimi, null, "");
+        ModalController.showModal(BiisitGUIController.class.getResource("LisaaArtisti.fxml"), "Artistit", null, "");
     }
     
     
     @FXML private void handleNaytaYhtiot() {
-        ModalController.showModal(BiisitGUIController.class.getResource("LisaaYhtio.fxml"), listannimi, null, "");
+        ModalController.showModal(BiisitGUIController.class.getResource("LisaaYhtio.fxml"), "Levy-yhtiöt", null, "");
     }
     
     
     @FXML private void handleMuokkausSivu() {
-        ModalController.showModal(BiisitGUIController.class.getResource("Muokkaus.fxml"), listannimi, null, "");
+        ModalController.showModal(BiisitGUIController.class.getResource("Muokkaus.fxml"), "Kappale", null, "");
     }
     
     
     //------------------------- TÄSTÄ ETEENPÄIN EI LIITY SUORAAN KÄYTTÖLIITTYMÄÄN ----------------------------
     
-    
+    private String listannimi = "Hittibiisit";
     private Rekisteri rekisteri;
     private Kappale kappaleKohdalla;
     private TextArea areaKappale = new TextArea();
@@ -145,7 +152,10 @@ public class BiisitGUIController implements Initializable{
     private void naytaKappale() {
         kappaleKohdalla = chooserKappaleet.getSelectedObject();
         
-        if(kappaleKohdalla == null) return;
+        if(kappaleKohdalla == null) {
+            areaKappale.clear();
+            return;
+        }
         
         areaKappale.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKappale)){
@@ -159,19 +169,34 @@ public class BiisitGUIController implements Initializable{
      * @param nro Kappaleen numero
      */
     private void hae(int nro) {
+        int k = cbKentat.getSelectionModel().getSelectedIndex();
+        String ehto = hakuehto.getText();
+        if (k > 0 || ehto.length() > 0)
+                naytaVirhe(String.format("Ei osata hakea (kenttä: %d, ehto %s)",  k, ehto));
+        else
+            naytaVirhe(null);
+        
         chooserKappaleet.clear();
         
         int index = 0;
-        for(int i = 0; i < rekisteri.getKappaleet(); i++) {
-            Kappale kappale = rekisteri.annaKappale(i);
-            if (kappale.getKappaleId() == nro) index = i;
-            chooserKappaleet.add(kappale.getKappaleenNimi(), kappale);
+        Collection<Kappale> kappaleet;
+        try {
+            kappaleet = rekisteri.etsi(ehto, k);
+            int i = 0;
+            for (Kappale kappale : kappaleet) {
+                if (kappale.getKappaleId() == nro) index = i;
+                chooserKappaleet.add(kappale.getKappaleenNimi(), kappale);
+                i++;
+            }
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Kappaleen hakemisessa ongelmia! " + ex.getMessage());
         }
         chooserKappaleet.setSelectedIndex(index);
     }
     
     
-    private void uusiYhtio() {
+    
+       private void uusiYhtio() {
         if(kappaleKohdalla == null) return;
         Levyyhtio levyyhtio = new Levyyhtio();
         levyyhtio.rekisteroi();
@@ -180,7 +205,8 @@ public class BiisitGUIController implements Initializable{
         hae(kappaleKohdalla.getKappaleId());
         
     }    
-    
+     
+ 
     
     private void uusiArtisti() {
         if(kappaleKohdalla == null) return;
@@ -188,6 +214,7 @@ public class BiisitGUIController implements Initializable{
         artisti.rekisteroi();
         artisti.vastaaTravisScott(kappaleKohdalla.getArtistiID());
         rekisteri.lisaa(artisti);
+        
         hae(kappaleKohdalla.getKappaleId());       
     }
 
@@ -231,13 +258,21 @@ public class BiisitGUIController implements Initializable{
     /**
      * Alustaa listan lukemalla sen valitun nimisestä tiedostosta
      * @param nimi tiedosto josta kerhon tiedot luetaan
+     * @return null jos onnistuu, jos ei niin palautuu virhe
      */
-    protected void lueTiedosto(String nimi) {
+    protected String lueTiedosto(String nimi) {
         listannimi = nimi;
         setTitle("Hittibiisit - " + listannimi);
-        //String virhe = "Ei osata lukea vielä";  // TODO: tähän oikea tiedoston lukeminen
-        // if (virhe != null) 
-            //Dialogs.showMessageDialog(virhe);
+        try {
+            rekisteri.lueTiedostosta(nimi);
+            hae(0);
+            return null;
+        } catch (SailoException e) {
+            hae(0);
+            String virhe = e.getMessage();
+            if (virhe != null) Dialogs.showMessageDialog(virhe);
+            return virhe;
+        }
     }
 
     
@@ -272,10 +307,6 @@ public class BiisitGUIController implements Initializable{
 
         Levyyhtio levyhtio = rekisteri.annaYhtio(artisti);
         levyhtio.tulosta(os);
-        /**List<Artisti> artistit = rekisteri.annaArtistit(kappale);
-        for (Artisti ar : artistit)
-            ar.tulosta(os);
-        */
     }
     
     
@@ -285,12 +316,14 @@ public class BiisitGUIController implements Initializable{
      */
     public void tulostaValitut(TextArea text) {
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(text)) {
-            os.println("Tulostetaan kaikki jäsenet");
-            for (int i = 0; i < rekisteri.getKappaleet(); i++) {
-                Kappale kappale = rekisteri.annaKappale(i);
+            os.println("Tulostetaan kaikki kappaleet");
+            Collection<Kappale> kappaleet = rekisteri.etsi("", -1);
+            for (Kappale kappale : kappaleet) {
                 tulosta(os, kappale);
                 os.println("\n\n");
             }
+           } catch (SailoException ex) {
+               Dialogs.showMessageDialog("Ongelmia kappaleen hakemisessa :( " + ex.getMessage());
         }
     }
 
@@ -307,7 +340,13 @@ public class BiisitGUIController implements Initializable{
     }
 
 
-    private void tallenna() {
-        Dialogs.showMessageDialog("Ei osata tallentaa.");
+    private String tallenna() {
+        try {
+            rekisteri.tallenna();
+            return null;
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
+            return ex.getMessage();
+        }
     }
 }

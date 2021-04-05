@@ -54,6 +54,7 @@ public class Rekisteri {
      */
     public void lisaa(Artisti artisti) {
         artistit.lisaa(artisti);
+
     }
     
     
@@ -98,7 +99,7 @@ public class Rekisteri {
         dir.mkdirs();
         String hakemistonNimi = "";
         if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
-        kappaleet.setTiedostonPerusNimi(hakemistonNimi + "nimet");
+        kappaleet.setTiedostonPerusNimi(hakemistonNimi + "kappaleet");
         artistit.setTiedostonPerusNimi(hakemistonNimi + "artistit");
         yhtiot.setTiedostonPerusNimi(hakemistonNimi + "levyyhtiot");
     }
@@ -131,7 +132,7 @@ public class Rekisteri {
         try {
             kappaleet.tallenna();
         } catch ( SailoException ex ) {
-            virhe = ex.getMessage();
+            virhe += ex.getMessage();
         }
 
         try {

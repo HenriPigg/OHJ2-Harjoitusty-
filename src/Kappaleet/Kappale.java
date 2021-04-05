@@ -35,6 +35,7 @@ public class Kappale {
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
+        out.println(String.format("%d", this.kappaleId));
         out.println(kappaleenNimi);
         out.println(albumi);
         out.println(String.format("%d", julkaisuvuosi));

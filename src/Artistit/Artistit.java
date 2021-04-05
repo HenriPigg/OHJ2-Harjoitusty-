@@ -134,7 +134,7 @@ public class Artistit implements Iterable<Artisti> {
      * @return tallennustiedoston nimi
      */
     public String getTiedostonNimi() {
-        return this.tiedostonNimi + ".dat";
+        return this.tiedostonNimi + ".txt";
     }
 
 

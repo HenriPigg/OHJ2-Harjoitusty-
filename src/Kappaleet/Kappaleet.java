@@ -5,6 +5,7 @@ package Kappaleet;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -54,7 +55,8 @@ public class Kappaleet implements Iterable<Kappale> {
      * </pre>
      */
     public void lisaa(Kappale kappale) throws SailoException {
-        if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");
+        if (lkm >= alkiot.length) alkiot = Arrays.copyOf(alkiot, lkm + 10);
+            
         alkiot[lkm] = kappale;
         lkm++;
     }
@@ -84,7 +86,7 @@ public class Kappaleet implements Iterable<Kappale> {
      * @return tallennustiedoston nimi
      */
     public String getTiedostonNimi() {
-        return this.getTiedostonPerusNimi() + ".dat";
+        return this.getTiedostonPerusNimi() + ".txt";
     }
     
     
