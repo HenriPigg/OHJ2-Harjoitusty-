@@ -29,7 +29,7 @@ public class Levyyhtio {
         Levyyhtio eka = new Levyyhtio();
         
         eka.rekisteroi();
-        eka.vastaaCreation(1000);
+        eka.vastaaCreation();
         eka.tulosta(System.out);
         
     }
@@ -99,10 +99,9 @@ public class Levyyhtio {
     
     /**
      * Testiarvot
-     * @param nro Annettava esimerkki id
      */
-    public void vastaaCreation(int nro) {
-        this.levyyhtioID = nro;
+    public void vastaaCreation() {
+        this.levyyhtioID = getLevyyhtioID();
         this.levyyhtio = "Creation Records";
         this.perustamisvuosi = 2013;
     }

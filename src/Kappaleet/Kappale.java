@@ -89,7 +89,7 @@ public class Kappale {
      */
     public void vastaaSickoMode() {
         this.kappaleId = getKappaleId();
-        this.artistiID = 10;
+        this.artistiID = 1;
         this.albumi = "ASTROWORLD";
         this.genre = "Hip hop";
         this.kappaleenNimi = "SICKO MODE";

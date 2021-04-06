@@ -56,9 +56,9 @@ public class Kappaleet implements Iterable<Kappale> {
      */
     public void lisaa(Kappale kappale) throws SailoException {
         if (lkm >= alkiot.length) alkiot = Arrays.copyOf(alkiot, lkm + 10);
-            
         alkiot[lkm] = kappale;
         lkm++;
+        muutettu = true;
     }
     
     

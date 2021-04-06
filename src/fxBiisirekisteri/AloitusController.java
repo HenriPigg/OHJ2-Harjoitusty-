@@ -59,7 +59,7 @@ public class AloitusController implements ModalControllerInterface<String>{
     public static String kysyNimi(Stage modalityStage, String oletus) {
         return ModalController.showModal(
                 AloitusController.class.getResource("Aloitus.fxml"),
-                "Biisit",
+                "Hittibiisit",
                 modalityStage, oletus);
     }
 

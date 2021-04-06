@@ -219,7 +219,7 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
         levyyhtiot.lisaa(creation);
         
         
-        creation.vastaaCreation(1000);
+        creation.vastaaCreation();
         
         
             System.out.println("============= Levy-yhtiöt testi =================");

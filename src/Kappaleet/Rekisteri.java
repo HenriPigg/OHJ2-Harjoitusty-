@@ -234,7 +234,7 @@ public class Rekisteri {
             Artisti travis = new Artisti();
             Artisti oasis = new Artisti();
             
-            travis.vastaaTravisScott(10);
+            travis.vastaaTravisScott();
             oasis.vastaaOasis(20);
 
             rekisteri.lisaa(travis);
@@ -243,7 +243,7 @@ public class Rekisteri {
             
             Levyyhtio creation = new Levyyhtio();
             
-            creation.vastaaCreation(1000);
+            creation.vastaaCreation();
             
             rekisteri.lisaa(creation);
             

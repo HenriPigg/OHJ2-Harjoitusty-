@@ -200,7 +200,7 @@ public class BiisitGUIController implements Initializable{
         if(kappaleKohdalla == null) return;
         Levyyhtio levyyhtio = new Levyyhtio();
         levyyhtio.rekisteroi();
-        levyyhtio.vastaaCreation(1000);
+        levyyhtio.vastaaCreation();
         rekisteri.lisaa(levyyhtio);
         hae(kappaleKohdalla.getKappaleId());
         
@@ -212,8 +212,8 @@ public class BiisitGUIController implements Initializable{
         if(kappaleKohdalla == null) return;
         Artisti artisti = new Artisti();
         artisti.rekisteroi();
-        artisti.vastaaTravisScott(kappaleKohdalla.getArtistiID());
-        rekisteri.lisaa(artisti);
+        artisti.vastaaTravisScott();
+            rekisteri.lisaa(artisti);
         
         hae(kappaleKohdalla.getKappaleId());       
     }
@@ -308,25 +308,6 @@ public class BiisitGUIController implements Initializable{
         Levyyhtio levyhtio = rekisteri.annaYhtio(artisti);
         levyhtio.tulosta(os);
     }
-    
-    
-    /**
-     * Tulostaa listassa olevat kappaleet tekstialueeseen
-     * @param text alue johon tulostetaan
-     */
-    public void tulostaValitut(TextArea text) {
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(text)) {
-            os.println("Tulostetaan kaikki kappaleet");
-            Collection<Kappale> kappaleet = rekisteri.etsi("", -1);
-            for (Kappale kappale : kappaleet) {
-                tulosta(os, kappale);
-                os.println("\n\n");
-            }
-           } catch (SailoException ex) {
-               Dialogs.showMessageDialog("Ongelmia kappaleen hakemisessa :( " + ex.getMessage());
-        }
-    }
-
     
     
     private void naytaVirhe(String virhe) {
