@@ -30,7 +30,7 @@ public class Artisti {
         Artisti eka = new Artisti();
         eka.rekisteroi();
         
-        eka.vastaaTravisScott();
+        eka.vastaaTravisScott(1);
         eka.tulosta(System.out);
     
     }
@@ -90,9 +90,10 @@ public class Artisti {
     
     /**
      * Luodaan testiarvot artistille.
+     * @param nro Viite artistin kappaleeseen
      */
-    public void vastaaTravisScott() {
-        this.artistiID = getArtistiID();
+    public void vastaaTravisScott(int nro) {
+        this.artistiID = nro;
         this.levyyhtioID = 1;
         this.artistiNimi = "Travis Scott";
         this.aloitusvuosi = randomi(2000,2021);

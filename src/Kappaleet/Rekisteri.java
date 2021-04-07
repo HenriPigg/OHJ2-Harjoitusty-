@@ -234,7 +234,7 @@ public class Rekisteri {
             Artisti travis = new Artisti();
             Artisti oasis = new Artisti();
             
-            travis.vastaaTravisScott();
+            travis.vastaaTravisScott(travis.getArtistiID());
             oasis.vastaaOasis(20);
 
             rekisteri.lisaa(travis);

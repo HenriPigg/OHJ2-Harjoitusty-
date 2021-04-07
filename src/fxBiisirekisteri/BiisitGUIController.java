@@ -195,27 +195,26 @@ public class BiisitGUIController implements Initializable{
     }
     
     
-    
        private void uusiYhtio() {
         if(kappaleKohdalla == null) return;
         Levyyhtio levyyhtio = new Levyyhtio();
         levyyhtio.rekisteroi();
         levyyhtio.vastaaCreation();
         rekisteri.lisaa(levyyhtio);
-        hae(kappaleKohdalla.getKappaleId());
+        Artisti ar = rekisteri.annaArtisti(kappaleKohdalla);
+        hae(ar.getLevyyhtioID()); //TODO: HAE ARTISTIN LEVYYHTIO ID
         
     }    
-     
  
     
     private void uusiArtisti() {
         if(kappaleKohdalla == null) return;
         Artisti artisti = new Artisti();
         artisti.rekisteroi();
-        artisti.vastaaTravisScott();
+        artisti.vastaaTravisScott(kappaleKohdalla.getArtistiID());
             rekisteri.lisaa(artisti);
         
-        hae(kappaleKohdalla.getKappaleId());       
+        hae(kappaleKohdalla.getArtistiID());       
     }
 
     

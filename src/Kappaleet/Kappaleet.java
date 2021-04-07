@@ -143,8 +143,8 @@ public class Kappaleet implements Iterable<Kappale> {
      * Kelmien kerho
      * 20
      * ; kommenttirivi
-     * 2|Ankka Aku|121103-706Y|Paratiisitie 13|12345|ANKKALINNA|12-1234|||1996|50.0|30.0|Velkaa Roopelle
-     * 3|Ankka Tupu|121153-706Y|Paratiisitie 13|12345|ANKKALINNA|12-1234|||1996|50.0|30.0|Velkaa Roopelle
+     * 1|1|SICKO MODE|2018|100
+     * 2|2|Wonderwall|2000|101
      * </pre>
      * @throws SailoException jos talletus epäonnistuu
      */

@@ -224,7 +224,7 @@ public class Artistit implements Iterable<Artisti> {
         Artisti artisti2 = new Artisti();
 
         harrasteet.lisaa(artisti1);
-        artisti1.vastaaTravisScott();
+        artisti1.vastaaTravisScott(1);
         harrasteet.lisaa(artisti2);
         artisti2.vastaaOasis(20);
 
