@@ -162,7 +162,7 @@ public class Kappale implements Cloneable{
      * @return null jos kaikki ok
      */
     public String setKuuntelukerrat(String s) {
-        if (s.matches("[0-9]*") ) return "Kuuntelukertojen pitää olla numeerinen";
+        if (!s.matches("[0-9]*") ) return "Kuuntelukertojen pitää olla numeerinen";
         this.kuuntelukerrat = s;
         return null;
     }
