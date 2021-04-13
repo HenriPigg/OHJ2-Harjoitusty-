@@ -19,12 +19,9 @@ import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import fi.jyu.mit.fxgui.TextAreaOutputStream;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Font;
-import javafx.scene.control.TextArea;
 import fi.jyu.mit.fxgui.ListChooser;
 import javafx.scene.control.ScrollPane;
 
@@ -43,6 +40,12 @@ public class BiisitGUIController implements Initializable{
     @FXML private Label labelVirhe;
     @FXML private ScrollPane panelKappale;
     @FXML private ListChooser<Kappale> chooserKappaleet;
+    
+    @FXML private TextField editKappaleenNimi;
+    @FXML private TextField editAlbumi;
+    @FXML private TextField editJulkaisuvuosi;
+    @FXML private TextField editGenre;
+    @FXML private TextField editKuuntelukerrat;
 
 
     
@@ -120,7 +123,7 @@ public class BiisitGUIController implements Initializable{
     
     
     @FXML private void handleMuokkausSivu() {
-        ModalController.showModal(BiisitGUIController.class.getResource("Muokkaus.fxml"), "Kappale", null, "");
+        muokkaa();
     }
     
     
@@ -129,20 +132,22 @@ public class BiisitGUIController implements Initializable{
     private String listannimi = "Hittibiisit";
     private Rekisteri rekisteri;
     private Kappale kappaleKohdalla;
-    private TextArea areaKappale = new TextArea();
     
+    private TextField edits[];
     
     /**
      * Tarvittavat alustukset
      */
     protected void alusta() {
-        panelKappale.setContent(areaKappale);
-        areaKappale.setFont(new Font("Courier New", 12));
-        panelKappale.setFitToHeight(true);
-        
         chooserKappaleet.clear();
         chooserKappaleet.addSelectionListener(e -> naytaKappale());
-
+        
+        edits = new TextField[] { 
+                editKappaleenNimi, 
+                editAlbumi, 
+                editJulkaisuvuosi, 
+                editGenre, 
+                editKuuntelukerrat };
     }
     
     
@@ -152,15 +157,10 @@ public class BiisitGUIController implements Initializable{
     private void naytaKappale() {
         kappaleKohdalla = chooserKappaleet.getSelectedObject();
         
-        if(kappaleKohdalla == null) {
-            areaKappale.clear();
-            return;
-        }
+        if(kappaleKohdalla == null) return;
         
-        areaKappale.setText("");
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKappale)){
-            tulosta(os, kappaleKohdalla);
-        }     
+        KappaleDialogController.naytaKappale(edits, kappaleKohdalla);
+             
     }
     
     
@@ -195,6 +195,23 @@ public class BiisitGUIController implements Initializable{
     }
     
     
+    private void muokkaa() { 
+        if ( kappaleKohdalla == null ) return; 
+        try { 
+            Kappale kappale; 
+            kappale = KappaleDialogController.kysyKappale(null, kappaleKohdalla.clone()); 
+            if ( kappale == null ) return; 
+            rekisteri.korvaaTaiLisaa(kappale); 
+            hae(kappale.getKappaleId()); 
+        } catch (CloneNotSupportedException e) { 
+            // 
+        } catch (SailoException e) { 
+            Dialogs.showMessageDialog(e.getMessage()); 
+        } 
+    }     
+
+    
+    
        private void uusiYhtio() {
         if(kappaleKohdalla == null) return;
         Levyyhtio levyyhtio = new Levyyhtio();
@@ -222,17 +239,18 @@ public class BiisitGUIController implements Initializable{
      * 
      */
     private void uusiKappale() {
-        Kappale uusi = new Kappale();
-        uusi.rekisteroi();
-        uusi.vastaaSickoMode();
-        
         try {
+            Kappale uusi = new Kappale();
+            uusi = KappaleDialogController.kysyKappale(null, uusi);  
+            if ( uusi == null ) return;
+            uusi.rekisteroi();
             rekisteri.lisaa(uusi);
-        } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Ongelmia uuden kappaleen luomisessa " + ex.getMessage());
+            hae(uusi.getKappaleId());
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
             return;
         }
-        hae(uusi.getKappaleId());
+
     }
     
     

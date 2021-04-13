@@ -15,18 +15,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.jyu.mit.fxgui.ModalController">
+<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxBiisirekisteri.KappaleDialogController">
    <bottom>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Label maxWidth="1000.0" />
+            <Label fx:id="labelVirhe" maxWidth="1000.0" />
             <HBox />
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar prefHeight="54.0" prefWidth="371.0">
               <buttons>
                 <Button defaultButton="true" mnemonicParsing="false" text="Lisää artisti" />
                 <Button defaultButton="true" mnemonicParsing="false" text="Lisää levy-yhtiö" />                            
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#handleDefaultOK" text="OK" />
-                <Button cancelButton="true" mnemonicParsing="false" onAction="#handleDefaultCancel" text="Peruuta" />
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOK" text="OK" />
+                <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Peruuta" />
               </buttons>
                <padding>
                   <Insets right="10.0" />
@@ -51,11 +51,6 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label text="Kappaleen nimi" />
@@ -63,24 +58,24 @@
                   <Label text="Albumi" GridPane.rowIndex="2" />
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="3" />
                   <Label text="Genre" GridPane.rowIndex="4" />
-                  <Label text="Levymyynnit" GridPane.rowIndex="5" />
-                  <Label text="Levy-yhtiö" GridPane.rowIndex="6" />
-                  <Label text="Striimaukset" GridPane.rowIndex="7" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
-                  <SplitMenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label text="Levy-yhtiö" GridPane.rowIndex="5" />
+                  <Label prefHeight="3.0" prefWidth="79.0" text="Kuuntelukerrat" GridPane.rowIndex="6" />
+                  <TextField fx:id="editKappaleenNimi" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <TextField fx:id="editAlbumi" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                  <TextField fx:id="editJulkaisuvuosi" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                  <TextField fx:id="editGenre" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                  <TextField fx:id="editKuuntelukerrat" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></TextField>
+                  <SplitMenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Travis Scott" />
                       <MenuItem mnemonicParsing="false" text="Backstreet Boys" />
                         <MenuItem mnemonicParsing="false" text="Oasis" />
                     </items>
                   </SplitMenuButton>
-                  <SplitMenuButton layoutX="112.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <SplitMenuButton layoutX="112.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Creation Records" />
                         <MenuItem mnemonicParsing="false" text="Cactus Jack Records" />

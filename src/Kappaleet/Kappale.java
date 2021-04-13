@@ -13,15 +13,15 @@ import fi.jyu.mit.ohj2.Mjonot;
  * @version 22.2.2021
  *
  */
-public class Kappale {
+public class Kappale implements Cloneable{
 
     private int kappaleId = 0;
     private int artistiID = 0;
     private String kappaleenNimi = "";
     private String albumi = "";
-    private int julkaisuvuosi = 0;
+    private String julkaisuvuosi = "";
     private String genre = "";
-    private int kuuntelukerrat = 0;
+    private String kuuntelukerrat = "";
     
   
 
@@ -38,9 +38,9 @@ public class Kappale {
         out.println(String.format("%d", this.kappaleId));
         out.println(kappaleenNimi);
         out.println(albumi);
-        out.println(String.format("%d", julkaisuvuosi));
+        out.println(julkaisuvuosi);
         out.println(genre);
-        out.println(String.format("%d", kuuntelukerrat));
+        out.println(kuuntelukerrat);
     }
     
     
@@ -59,11 +59,43 @@ public class Kappale {
     
     
     /**
+     * @return Kappaleen albumin nimi
+     */
+    public String getAlbumi() {
+        return this.albumi;
+    }
+    
+    
+    /**
+     * @return Kappaleen julkaisuvuosi
+     */
+    public String getVuosi() {
+        return this.julkaisuvuosi;
+    }
+    
+    
+    /**
      * @return Haetun kappaleen id numeron
      *
      */
     public int getKappaleId() {
-        return kappaleId;
+        return this.kappaleId;
+    }
+    
+    
+    /**
+     * @return Kappaleen genre
+     */
+    public String getGenre() {
+        return this.genre;
+    }
+    
+    
+    /**
+     * @return Kappaleen kuuntelukerrat
+     */
+    public String getKuuntelukerrat() {
+        return this.kuuntelukerrat;
     }
     
     
@@ -85,6 +117,58 @@ public class Kappale {
     
     
     /**
+     * @param s Kappaleelle annettava nimi
+     * @return null jos kaikki ok
+     */
+    public String setKappaleenNimi(String s) { 
+        this.kappaleenNimi = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Albumille annettava nimi
+     * @return null jos kaikki ok
+     */
+    public String setAlbumi(String s) {
+        this.albumi = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Annettava julkaisuvuosi
+     * @return null jos kaikki ok
+     */
+    public String setJulkaisuvuosi(String s) {
+        if (!s.matches("[0-9]*") ) return "Julkaisuvuoden pitää olla numeerinen";
+        this.julkaisuvuosi = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Annettava genre
+     * @return null jos kaikki ok
+     */
+    public String setGenre(String s) {
+        this.genre = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Annettavat kuuntelukerrat
+     * @return null jos kaikki ok
+     */
+    public String setKuuntelukerrat(String s) {
+        if (s.matches("[0-9]*") ) return "Kuuntelukertojen pitää olla numeerinen";
+        this.kuuntelukerrat = s;
+        return null;
+    }
+    
+    
+    /**
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {
@@ -93,8 +177,8 @@ public class Kappale {
         this.albumi = "ASTROWORLD";
         this.genre = "Hip hop";
         this.kappaleenNimi = "SICKO MODE";
-        this.julkaisuvuosi = 2018;
-        this.kuuntelukerrat = randomi(2000,100000);
+        this.julkaisuvuosi = "2018";
+        this.kuuntelukerrat = "202022";
     }
     
     
@@ -120,8 +204,8 @@ public class Kappale {
         this.albumi = "Jotain";
         this.genre = "Jotain";
         this.kappaleenNimi = "Wonderwall";
-        this.julkaisuvuosi = 2012;
-        this.kuuntelukerrat = randomi(200, 10000000);
+        //this.julkaisuvuosi = 2012;
+        //this.kuuntelukerrat = randomi(200, 10000000);
     }
     
     
@@ -132,7 +216,11 @@ public class Kappale {
      *  Kappale k = new Kappale();
      *  k.getKappaleId() === 0;
      *  k.rekisteroi();
-     *  k.getKappaleId() === 1;
+     *  Kappale k2 = new Kappale();
+     *  k2.rekisteroi();
+     *  int eka = k.getKappaleId();
+     *  int toka = k2.getKappaleId();
+     *  eka === toka-1;
      * </pre>
      */
     public int rekisteroi() {
@@ -186,7 +274,7 @@ public class Kappale {
      *   kappale.toString().startsWith("3|1|SICKO MODE|") === true; // on enemmäkin kuin 3 kenttää, siksi loppu |
      *
      *   kappale.rekisteroi();
-     *   int n = jasen.getKappaleId();
+     *   int n = kappale.getKappaleId();
      *   kappale.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
      *   kappale.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
      *   kappale.getKappaleId() === n+20+1;
@@ -205,6 +293,28 @@ public class Kappale {
         kuuntelukerrat = Mjonot.erota(sb, '|', kuuntelukerrat);
     }
 
+    
+    /**
+     * Tehdään identtinen klooni kappaleesta
+     * @return Object kloonattu kappale
+     * @example
+     * <pre name="test">
+     * #THROWS CloneNotSupportedException 
+     *   Kappale kappale = new Kappale();
+     *   kappale.parse("   1  |  1  | SICKO MODE");
+     *   Kappale kopio = kappale.clone();
+     *   kopio.toString() === kappale.toString();
+     *   kappale.parse("   2  |  Ankka Tupu   | 123");
+     *   kopio.toString().equals(kappale.toString()) === false;
+     * </pre>
+     */
+    @Override
+    public Kappale clone() throws CloneNotSupportedException {
+        Kappale uusi;
+        uusi = (Kappale) super.clone();
+        return uusi;
+    }
+    
     
     @Override
     public boolean equals(Object kappale) {
@@ -227,8 +337,8 @@ public class Kappale {
         Kappale eka = new Kappale();
         Kappale toka = new Kappale();
         
-        eka.rekisteroi();
-        toka.rekisteroi();
+        //eka.rekisteroi();
+        //toka.rekisteroi();
         
         //eka.tulosta(System.out);
         eka.vastaaSickoMode();
@@ -236,6 +346,10 @@ public class Kappale {
         eka.tulosta(System.out);
         toka.tulosta(System.out);
         
+        Kappale k = new Kappale();
+        System.out.println(k.getKappaleId());
+        k.rekisteroi();
+        System.out.println(k.getKappaleId());
     }
 
 }

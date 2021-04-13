@@ -58,6 +58,15 @@ public class Rekisteri {
     }
     
     
+    /**
+     * @param kappale Lisättävän kappaleen viite
+     * @throws SailoException jos täynnä
+     */
+    public void korvaaTaiLisaa(Kappale kappale) throws SailoException {
+        kappaleet.korvaaTaiLisaa(kappale);
+    }
+    
+    
     /** 
      * Palauttaa "taulukossa" hakuehtoon vastaavien kappaleiden viitteet 
      * @param hakuehto hakuehto  

@@ -103,18 +103,16 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label text="Artisti" />
+                              <Label text="Kappale" />
                               <Label text="Albumi" GridPane.rowIndex="1" />
                               <Label text="Julkaisuvuosi" GridPane.rowIndex="2" />
-                              <Label text="Levy-yhtiö" GridPane.rowIndex="3" />
-                              <Label text="Genre" GridPane.rowIndex="4" />
-                              <Label text="Kuuntelukerrat" GridPane.rowIndex="5" />
-                              <TextField text="Travis Scott" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                              <TextField text="ASTROWORLD" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                              <TextField text="2018" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                              <TextField text="Creation Records" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                              <TextField text="Hip Hop" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                              <TextField text="1926496174" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                              <Label text="Genre" GridPane.rowIndex="3" />
+                              <Label text="Kuuntelukerrat" GridPane.rowIndex="4" />
+                              <TextField fx:id="editKappaleenNimi" editable="false" text="SICKO MODE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                              <TextField fx:id="editAlbumi" editable="false" text="ASTROWORLD" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                              <TextField fx:id="editJulkaisuvuosi" editable="false" text="2018" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                              <TextField fx:id="editGenre" editable="false" text="Hip Hop" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                              <TextField fx:id="editKuuntelukerrat" editable="false" text="1926496174" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
                            </children>
                            <opaqueInsets>
                               <Insets left="10.0" top="10.0" />

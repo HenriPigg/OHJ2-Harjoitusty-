@@ -42,6 +42,23 @@ public class Kappaleet implements Iterable<Kappale> {
     
     
     /**
+     * @param kappale Kappale viite
+     * @throws SailoException virheilmoitus
+     */
+    public void korvaaTaiLisaa(Kappale kappale) throws SailoException {
+        int id = kappale.getKappaleId();
+        for (int i = 0; i < lkm; i++) {
+            if (alkiot[i].getKappaleId() == id) {
+                alkiot[i] = kappale;
+                muutettu = true;
+                return;
+            }
+        }
+        lisaa(kappale);
+    }
+    
+    
+    /**
      * @param kappale Lisättävän kappaleen viite
      * @throws SailoException jos tietorakenne on täynnä
      * @example
@@ -67,7 +84,7 @@ public class Kappaleet implements Iterable<Kappale> {
      * @return viite kappaleeseen indeksissä i
      * @throws IndexOutOfBoundsException Jos i on yli sallitun rajan
      */
-    public Kappale anna(int i) throws IndexOutOfBoundsException{
+    protected Kappale anna(int i) throws IndexOutOfBoundsException{
         if (i < 0 || lkm <= i)
             throw new IndexOutOfBoundsException("Ei sallittu indeksi: " + i);
         return alkiot[i];
@@ -140,7 +157,7 @@ public class Kappaleet implements Iterable<Kappale> {
      * Tallentaa jäsenistön tiedostoon.  
      * Tiedoston muoto:
      * <pre>
-     * Kelmien kerho
+     * Hitit
      * 20
      * ; kommenttirivi
      * 1|1|SICKO MODE|2018|100

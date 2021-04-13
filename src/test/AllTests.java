@@ -17,7 +17,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
    Kappaleet.test.KappaleTest.class,
-   Kappaleet.test.KappaleetTest.class,
    Kappaleet.test.RekisteriTest.class,
    
    Artistit.test.ArtistiTest.class,
