@@ -40,6 +40,22 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
 
     
     /**
+     * @param yhtio Kappale viite
+     * @throws SailoException virheilmoitus
+     */
+    public void korvaaTaiLisaa(Levyyhtio yhtio) throws SailoException {
+        int id = yhtio.getLevyyhtioID();
+        for (Levyyhtio ar : alkiot)
+            if (ar.getLevyyhtioID() == id) {
+                ar = yhtio;
+                muutettu = true;
+                return;
+            }
+        lisaa(yhtio);
+     }
+    
+    
+    /**
      * @param yhtio Lisättävä levy-yhtiö
      */
     public void lisaa(Levyyhtio yhtio) {

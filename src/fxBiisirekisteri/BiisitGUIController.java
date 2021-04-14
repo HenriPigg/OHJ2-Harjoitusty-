@@ -213,14 +213,11 @@ public class BiisitGUIController implements Initializable{
     
     
        private void uusiYhtio() {
-        if(kappaleKohdalla == null) return;
-        Levyyhtio levyyhtio = new Levyyhtio();
-        levyyhtio.rekisteroi();
-        levyyhtio.vastaaCreation();
-        rekisteri.lisaa(levyyhtio);
-        Artisti ar = rekisteri.annaArtisti(kappaleKohdalla);
-        hae(ar.getLevyyhtioID()); //TODO: HAE ARTISTIN LEVYYHTIO ID
-        
+        Levyyhtio uusi = new Levyyhtio();
+        uusi = YhtiotDialogController.kysyYhtio(null, uusi);
+        if (uusi == null) return;
+        uusi.rekisteroi();
+        rekisteri.lisaa(uusi);
     }    
  
     
@@ -230,7 +227,6 @@ public class BiisitGUIController implements Initializable{
         if (uusi == null) return;
         uusi.rekisteroi();
         rekisteri.lisaa(uusi);
-        
     }
 
     

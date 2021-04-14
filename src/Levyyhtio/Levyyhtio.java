@@ -6,6 +6,7 @@ package Levyyhtio;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import Kappaleet.Kappale;
 import fi.jyu.mit.ohj2.Mjonot;
 
 /**
@@ -13,11 +14,11 @@ import fi.jyu.mit.ohj2.Mjonot;
  * @version 18.3.2021
  *
  */
-public class Levyyhtio {
+public class Levyyhtio implements Cloneable {
 
     private int levyyhtioID = 0;
-    private String levyyhtio;
-    private int perustamisvuosi;
+    private String levyyhtio = "";
+    private String perustamisvuosi = "";
     
     private static int seuraavaNro = 1;
     
@@ -58,6 +59,14 @@ public class Levyyhtio {
      */
     public int getLevyyhtioID() {
         return this.levyyhtioID;
+    }
+    
+    
+    /**
+     * @return Perustamisvuosi
+     */
+    public String getPerustamisvuosi() {
+        return this.perustamisvuosi;
     }
     
     
@@ -103,7 +112,7 @@ public class Levyyhtio {
     public void vastaaCreation() {
         this.levyyhtioID = getLevyyhtioID();
         this.levyyhtio = "Creation Records";
-        this.perustamisvuosi = 2013;
+        this.perustamisvuosi = "2013";
     }
 
     
@@ -156,5 +165,47 @@ public class Levyyhtio {
     @Override
     public int hashCode() {
         return this.levyyhtioID;
+    }
+
+
+    /**
+     * @param s Yhtiön nimi
+     * @return null jos kaikki ok
+     */
+    public String setYhtio(String s) {
+        this.levyyhtio = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Perustamisvuosi
+     * @return null jos kaikki ok
+     */
+    public String setPerustamisvuosi(String s) {
+        this.perustamisvuosi = s;
+        return null;
+    }
+    
+    
+    /**
+     * Tehdään identtinen klooni kappaleesta
+     * @return Object kloonattu kappale
+     * @example
+     * <pre name="test">
+     * #THROWS CloneNotSupportedException 
+     *   Levyyhtio kappale = new Levyyhtio();
+     *   kappale.parse("   1  |  JOTAIN  | 2323");
+     *   Levyyhtio kopio = kappale.clone();
+     *   kopio.toString() === kappale.toString();
+     *   kappale.parse("   2  |  Creation   | 2010");
+     *   kopio.toString().equals(kappale.toString()) === false;
+     * </pre>
+     */
+    @Override
+    public Kappale clone() throws CloneNotSupportedException {
+        Kappale uusi;
+        uusi = (Kappale) super.clone();
+        return uusi;
     }
 }
