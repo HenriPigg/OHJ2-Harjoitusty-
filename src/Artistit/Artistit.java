@@ -30,6 +30,22 @@ public class Artistit implements Iterable<Artisti> {
 
 
     /**
+     * @param artisti Kappale viite
+     * @throws SailoException virheilmoitus
+     */
+    public void korvaaTaiLisaa(Artisti artisti) throws SailoException {
+        int id = artisti.getArtistiID();
+        for (Artisti ar : alkiot)
+            if (ar.getArtistiID() == id) {
+                ar = artisti;
+                muutettu = true;
+                return;
+            }
+        lisaa(artisti);
+     }
+        
+    
+    /**
      * Lisää uuden artistin tietorakenteeseen.
      * @param artisti lisättävä artisti.  Huom tietorakenne muuttuu omistajaksi
      */

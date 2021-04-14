@@ -13,12 +13,12 @@ import fi.jyu.mit.ohj2.Mjonot;
  * @version 18.3.2021
  *
  */
-public class Artisti {
+public class Artisti implements Cloneable{
 
     private int artistiID;
     private int levyyhtioID;
-    private String artistiNimi;
-    private int aloitusvuosi;
+    private String artistiNimi = "";
+    private String aloitusvuosi = "";
     
     private static int seuraavaNro = 1;
 
@@ -70,6 +70,27 @@ public class Artisti {
     
 
     /**
+     * @param s Artistille annettava nimi
+     * @return null jos kaikki ok
+     */
+    public String setArtisti(String s) {
+        this.artistiNimi = s;
+        return null;
+    }
+    
+    
+    /**
+     * @param s Artistille annettava nimi
+     * @return null jos kaikki ok
+     */
+    public String setAloitusvuosi(String s) {
+        if (!s.matches("[0-9]*") ) return "Aloitusvuoden pitää olla numeerinen";
+        this.aloitusvuosi = s;
+        return null;
+    }
+    
+    
+    /**
      * @return rekisteröidyn artistin
      * @example
      * <pre name="test">
@@ -96,7 +117,7 @@ public class Artisti {
         this.artistiID = nro;
         this.levyyhtioID = 1;
         this.artistiNimi = "Travis Scott";
-        this.aloitusvuosi = randomi(2000,2021);
+        this.aloitusvuosi = "2013";
     }
     
     
@@ -120,7 +141,7 @@ public class Artisti {
         this.artistiID = nro;
         this.levyyhtioID = 1001;
         this.artistiNimi = "Oasis";
-        this.aloitusvuosi = 2000;
+        this.aloitusvuosi = "2000";
     }
     
     
@@ -195,5 +216,36 @@ public class Artisti {
     public int hashCode() {
         return this.artistiID;
     }
+
+
+    /**
+     * @return Aloitusvuoden
+     */
+    public String getAloitusvuosi() {
+        return this.aloitusvuosi;
+    }
+    
+    
+    /**
+     * Tehdään identtinen klooni kappaleesta
+     * @return Object kloonattu kappale
+     * @example
+     * <pre name="test">
+     * #THROWS CloneNotSupportedException 
+     *   Artisti kappale = new Artisti();
+     *   kappale.parse("   1  |  1  | Travis Scott");
+     *   Artisti kopio = kappale.clone();
+     *   kopio.toString() === kappale.toString();
+     *   kappale.parse("   2  |  1   | 123");
+     *   kopio.toString().equals(kappale.toString()) === false;
+     * </pre>
+     */
+    @Override
+    public Artisti clone() throws CloneNotSupportedException {
+        Artisti uusi;
+        uusi = (Artisti) super.clone();
+        return uusi;
+    }
+    
     
 }

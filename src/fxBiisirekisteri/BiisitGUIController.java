@@ -225,13 +225,12 @@ public class BiisitGUIController implements Initializable{
  
     
     private void uusiArtisti() {
-        if(kappaleKohdalla == null) return;
-        Artisti artisti = new Artisti();
-        artisti.rekisteroi();
-        artisti.vastaaTravisScott(kappaleKohdalla.getArtistiID());
-            rekisteri.lisaa(artisti);
+        Artisti uusi = new Artisti();
+        uusi = ArtistiDialogController.kysyArtisti(null, uusi);
+        if (uusi == null) return;
+        uusi.rekisteroi();
+        rekisteri.lisaa(uusi);
         
-        hae(kappaleKohdalla.getArtistiID());       
     }
 
     
