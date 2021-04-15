@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import Artistit.Artisti;
 import Kappaleet.Kappale;
 import Kappaleet.Rekisteri;
+import Levyyhtio.Levyyhtio;
 import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
@@ -30,7 +31,8 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     @FXML private TextField editKuuntelukerrat;
     
     @FXML private ComboBoxChooser<Artisti> cbArtistit;
-    
+    @FXML private ComboBoxChooser<Levyyhtio> cbYhtiot;
+
     @FXML private Label labelVirhe;
 
     
@@ -100,6 +102,8 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
            case 5 : virhe = kappaleKohdalla.setKuuntelukerrat(s); break;
            default:
         }
+        
+        
         if (virhe == null) {
             Dialogs.setToolTipText(edit,"");
             edit.getStyleClass().removeAll("virhe");
@@ -121,6 +125,11 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
         cbArtistit.clear();
         for (Artisti ar : rekisteri.annaArtistit())
             cbArtistit.add(ar.getArtistiNimi(), ar);
+        
+        
+        cbYhtiot.clear();
+        for (Levyyhtio yh : rekisteri.annaYhtiot())
+            cbYhtiot.add(yh.getLevyyhtio(), yh);
         
         
         edits = new TextField[] { 

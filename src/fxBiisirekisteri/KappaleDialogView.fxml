@@ -70,14 +70,7 @@
                         <Insets />
                      </GridPane.margin></TextField>
                   <ComboBoxChooser fx:id="cbArtistit" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="1"> </ComboBoxChooser>
-                  <SplitMenuButton layoutX="112.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Creation Records" />
-                        <MenuItem mnemonicParsing="false" text="Cactus Jack Records" />
-                        <MenuItem mnemonicParsing="false" text="Epic Records" />
-                        <MenuItem mnemonicParsing="false" text="Jive" />
-                     </items>
-                  </SplitMenuButton>
+                  <ComboBoxChooser fx:id="cbYhtiot" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="5"></ComboBoxChooser>
                </children>
                <opaqueInsets>
                   <Insets left="10.0" top="10.0" />
