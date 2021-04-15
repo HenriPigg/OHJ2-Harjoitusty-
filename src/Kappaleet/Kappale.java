@@ -169,6 +169,16 @@ public class Kappale implements Cloneable{
     
     
     /**
+     * @param s asetettava artisti id
+     * @return null jos kaikki ok
+     */
+    public String setArtistiID(int s) {
+        this.artistiID = s;
+        return null;
+    }
+    
+    
+    /**
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {

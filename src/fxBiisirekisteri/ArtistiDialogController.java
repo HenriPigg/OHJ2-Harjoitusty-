@@ -7,7 +7,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Artistit.Artisti;
+import Kappaleet.Rekisteri;
 import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
@@ -25,6 +27,7 @@ public class ArtistiDialogController implements ModalControllerInterface<Artisti
 
     @FXML private TextField editArtisti;
     @FXML private TextField editAloitusvuosi;
+    @FXML private ListChooser<Artisti> chooserArtistit;
 
     @FXML private Label labelVirhe;
 
@@ -45,15 +48,14 @@ public class ArtistiDialogController implements ModalControllerInterface<Artisti
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        alusta();
-        
+        //
     }
 
     
 // ----------------------------------------------------------------------------    
     private Artisti artistiKohdalla;
     private TextField edits[];
-    
+    private Rekisteri rekisteri;
     
     /**
      * Tyhjentää halutut tekstikentät
@@ -83,13 +85,15 @@ public class ArtistiDialogController implements ModalControllerInterface<Artisti
 
     @Override
     public void handleShown() {
+        alusta();
         editArtisti.requestFocus();
+        naytaArtisti(edits, artistiKohdalla);
+
     }
 
     @Override
     public void setDefault(Artisti oletus) {
         artistiKohdalla = oletus;
-        naytaArtisti(edits, artistiKohdalla);
         
     }
     
@@ -111,6 +115,11 @@ public class ArtistiDialogController implements ModalControllerInterface<Artisti
      * Tarvittavat alustukset
      */
     public void alusta() {
+        
+        chooserArtistit.clear();
+        for (Artisti ar : rekisteri.annaArtistit())
+            chooserArtistit.add(ar.getArtistiNimi(), null);
+        
         edits = new TextField[] { 
                 editArtisti, 
                 editAloitusvuosi };
@@ -148,15 +157,23 @@ public class ArtistiDialogController implements ModalControllerInterface<Artisti
     
     
     /**
+     * @param rekisteri rekisteri
+     */
+    public void setRekisteri(Rekisteri rekisteri) {
+        this.rekisteri = rekisteri;
+    }
+    
+    /**
      * @param modalityStage Mille ollaan modaalisia
      * @param oletus Artisti jota näytetään oletuksena
+     * @param rekisteri rekisteri joka tuodaan
      * @return null muutoin artisti muokkaussivu
      */
-    public static Artisti kysyArtisti(Stage modalityStage, Artisti oletus) {
+    public static Artisti kysyArtisti(Stage modalityStage, Artisti oletus, Rekisteri rekisteri) {
         return ModalController.<Artisti, ArtistiDialogController>showModal(
                 ArtistiDialogController.class.getResource("LisaaArtisti.fxml"),
                 "Hittibiisit",
-                modalityStage, oletus, null 
+                modalityStage, oletus, ctrl -> {ctrl.setRekisteri(rekisteri); } 
             );
     }
 

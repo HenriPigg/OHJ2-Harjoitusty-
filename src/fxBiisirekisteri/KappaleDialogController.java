@@ -3,7 +3,10 @@ package fxBiisirekisteri;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Artistit.Artisti;
 import Kappaleet.Kappale;
+import Kappaleet.Rekisteri;
+import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
@@ -26,12 +29,14 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     @FXML private TextField editGenre;
     @FXML private TextField editKuuntelukerrat;
     
+    @FXML private ComboBoxChooser<Artisti> cbArtistit;
+    
     @FXML private Label labelVirhe;
 
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        alusta();
+        //
     }
     
     
@@ -52,6 +57,9 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
   //---------------------------------------------------------------------------
     private Kappale kappaleKohdalla;
     private TextField edits[];
+    private Rekisteri rekisteri; 
+    
+    
     
     
     /**
@@ -109,6 +117,12 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
      * Tarvittavat alustukset
      */
     public void alusta() {
+        
+        cbArtistit.clear();
+        for (Artisti ar : rekisteri.annaArtistit())
+            cbArtistit.add(ar.getArtistiNimi(), ar);
+        
+        
         edits = new TextField[] { 
                 editKappaleenNimi, 
                 editAlbumi, 
@@ -126,7 +140,6 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     @Override
     public void setDefault(Kappale oletus) {
         kappaleKohdalla = oletus;
-        naytaKappale(edits, kappaleKohdalla);
         
     }
     
@@ -152,17 +165,25 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     /**
      * @param modalityStage Mille ollaan modaalisia
      * @param oletus Kappale, jota näytetään oletuksena
+     * @param rekisteri tuotu rekisteri
      * @return cancel, palautuu null, muutoin kappale muokkaussivu
      */
-    public static Kappale kysyKappale(Stage modalityStage, Kappale oletus) {
+    public static Kappale kysyKappale(Stage modalityStage, Kappale oletus, Rekisteri rekisteri) {
         return ModalController.<Kappale, KappaleDialogController>showModal(
                 KappaleDialogController.class.getResource("KappaleDialogView.fxml"),
                 "Hittibiisit",
-                modalityStage, oletus, null 
+                modalityStage, oletus, 
+                ctrl -> { ctrl.setRekisteri(rekisteri); }
             );
 
     }
     
+
+    private void setRekisteri(Rekisteri rekisteri) {
+        this.rekisteri = rekisteri;
+        
+    }
+
 
     @Override
     public Kappale getResult() {
@@ -171,7 +192,9 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
 
     @Override
     public void handleShown() {
+        alusta();
         editKappaleenNimi.requestFocus();
+        naytaKappale(edits, kappaleKohdalla);
     }
 
 

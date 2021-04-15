@@ -3,5 +3,7 @@ Hittibiisit
 1|0|SICKO MODE|ASTROWORLD|2018|Hip hop|120000000
 2|0|Wonderwall|Familiar to Millions|2000|Indie|13000000
 3|0|One|…And Justice for All|1988|Thrash metal, Rock|37249333
-4|0|||||
-5|0|||||
+4|0|Mä hiihdän|Anatude|2017|Pop|23244244
+5|0|Thriller|Billie Jean|1982|R&B, pop|2983928392
+6|0|Blinding Lights|Blinding Lights|2019|Synthwave|4347023843
+7|0|Save Your Tears|After Hours|2020|R&B ja soul|322342343

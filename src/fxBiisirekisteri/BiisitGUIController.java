@@ -199,7 +199,7 @@ public class BiisitGUIController implements Initializable{
         if ( kappaleKohdalla == null ) return; 
         try { 
             Kappale kappale; 
-            kappale = KappaleDialogController.kysyKappale(null, kappaleKohdalla.clone()); 
+            kappale = KappaleDialogController.kysyKappale(null, kappaleKohdalla.clone(), rekisteri); 
             if ( kappale == null ) return; 
             rekisteri.korvaaTaiLisaa(kappale); 
             hae(kappale.getKappaleId()); 
@@ -214,7 +214,7 @@ public class BiisitGUIController implements Initializable{
     
        private void uusiYhtio() {
         Levyyhtio uusi = new Levyyhtio();
-        uusi = YhtiotDialogController.kysyYhtio(null, uusi);
+        uusi = YhtiotDialogController.kysyYhtio(null, uusi, rekisteri);
         if (uusi == null) return;
         uusi.rekisteroi();
         rekisteri.lisaa(uusi);
@@ -223,7 +223,7 @@ public class BiisitGUIController implements Initializable{
     
     private void uusiArtisti() {
         Artisti uusi = new Artisti();
-        uusi = ArtistiDialogController.kysyArtisti(null, uusi);
+        uusi = ArtistiDialogController.kysyArtisti(null, uusi, rekisteri);
         if (uusi == null) return;
         uusi.rekisteroi();
         rekisteri.lisaa(uusi);
@@ -236,7 +236,7 @@ public class BiisitGUIController implements Initializable{
     private void uusiKappale() {
         try {
             Kappale uusi = new Kappale();
-            uusi = KappaleDialogController.kysyKappale(null, uusi);  
+            uusi = KappaleDialogController.kysyKappale(null, uusi, rekisteri);  
             if ( uusi == null ) return;
             uusi.rekisteroi();
             rekisteri.lisaa(uusi);
@@ -247,6 +247,7 @@ public class BiisitGUIController implements Initializable{
         }
 
     }
+
     
     
     /**

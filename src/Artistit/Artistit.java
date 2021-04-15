@@ -206,7 +206,6 @@ public class Artistit implements Iterable<Artisti> {
     
     /**
      * 
-     * @param nro Numero, jota verrataan artisti id:seen 
      * @return tietorakenne jossa viiteet löydetteyihin artisteihin
      * 
      * @example
@@ -218,15 +217,15 @@ public class Artistit implements Iterable<Artisti> {
      *  Artisti a2 = new Artisti(); ar.lisaa(a2);
      *  
      *  List<Artisti> loytyneet;
-     *  loytyneet = ar.annaArtistit(1);
-     *  loytyneet.size() === 0;
+     *  loytyneet = ar.annaArtistit();
+     *  loytyneet.size() === 2;
      * </pre>
      */
-    public List<Artisti> annaArtistit(int nro) {
-        List<Artisti> loydetyt = new ArrayList<Artisti>();
+    public List<Artisti> annaArtistit() {
+        List<Artisti> kaikki = new ArrayList<Artisti>();
         for (Artisti artisti : alkiot)
-            if(artisti.getArtistiID() == nro) loydetyt.add(artisti);
-        return loydetyt;
+            kaikki.add(artisti);
+        return kaikki;
     }
 
 
@@ -247,8 +246,8 @@ public class Artistit implements Iterable<Artisti> {
         System.out.println("============= Artistit testi =================");
 
         
-        List<Artisti> artistit2 = harrasteet.annaArtistit(10);
-        List<Artisti> artistit3 = harrasteet.annaArtistit(20);
+        List<Artisti> artistit2 = harrasteet.annaArtistit();
+        List<Artisti> artistit3 = harrasteet.annaArtistit();
 
 
         for (Artisti ar : artistit2) {

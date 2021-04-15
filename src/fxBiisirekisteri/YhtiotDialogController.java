@@ -3,8 +3,10 @@ package fxBiisirekisteri;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Kappaleet.Rekisteri;
 import Levyyhtio.Levyyhtio;
 import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
@@ -22,13 +24,13 @@ public class YhtiotDialogController implements ModalControllerInterface<Levyyhti
 
     @FXML private TextField editYhtio;
     @FXML private TextField editPerustamisvuosi;
-    
+    @FXML private ListChooser<Levyyhtio> chooserYhtiot;
     @FXML private Label labelVirhe;
 
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        alusta();
+        //
     }
     
     
@@ -51,7 +53,7 @@ public class YhtiotDialogController implements ModalControllerInterface<Levyyhti
     
     private Levyyhtio yhtioKohdalla;
     private TextField edits[];
-    
+    private Rekisteri rekisteri;
     
     /**
      * Tyhjentää halutut tekstikentät
@@ -67,6 +69,11 @@ public class YhtiotDialogController implements ModalControllerInterface<Levyyhti
      * Tarvittavat alustukset
      */
     public void alusta() {
+        
+        chooserYhtiot.clear();
+        for (Levyyhtio l : rekisteri.annaYhtiot())
+            chooserYhtiot.add(l.getLevyyhtio(), null);
+        
         edits = new TextField[] { 
                 editYhtio, 
                 editPerustamisvuosi };
@@ -129,15 +136,24 @@ public class YhtiotDialogController implements ModalControllerInterface<Levyyhti
     /**
      * @param modalityStage Mille ollaan modaalisia
      * @param oletus Kappale, jota näytetään oletuksena
+     * @param rekisteri rekisteri jota tuodaan
      * @return cancel, palautuu null, muutoin kappale muokkaussivu
      */
-    public static Levyyhtio kysyYhtio(Stage modalityStage, Levyyhtio oletus) {
+    public static Levyyhtio kysyYhtio(Stage modalityStage, Levyyhtio oletus, Rekisteri rekisteri) {
         return ModalController.<Levyyhtio, YhtiotDialogController>showModal(
                 YhtiotDialogController.class.getResource("LisaaYhtio.fxml"),
                 "Hittibiisit",
-                modalityStage, oletus, null 
+                modalityStage, oletus, ctrl -> { ctrl.setRekisteri(rekisteri); } 
             );
 
+    }
+    
+    
+    /**
+     * @param rekisteri rekisteri
+     */
+    public void setRekisteri(Rekisteri rekisteri) {
+        this.rekisteri = rekisteri;
     }
     
     
@@ -148,14 +164,14 @@ public class YhtiotDialogController implements ModalControllerInterface<Levyyhti
 
     @Override
     public void handleShown() {
+        alusta();
         editYhtio.requestFocus();
+        naytaYhtio(edits, yhtioKohdalla);
     }
 
     @Override
     public void setDefault(Levyyhtio oletus) {
         yhtioKohdalla = oletus;
-        naytaYhtio(edits, yhtioKohdalla);
-        
     }
 
 }

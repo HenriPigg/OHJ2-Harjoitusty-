@@ -212,14 +212,13 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
     
     /**
      * 
-     * @param nro Numero, jota verrataan levy-yhtiön id:seen 
      * @return tietorakenne jossa viiteet löydetteyihin levy-yhtiöihin
      */
-    public List<Levyyhtio> annaYhtiot(int nro) {
-        List<Levyyhtio> loydetyt = new ArrayList<Levyyhtio>();
+    public List<Levyyhtio> annaYhtiot() {
+        List<Levyyhtio> kaikki = new ArrayList<Levyyhtio>();
         for (Levyyhtio yhtio : alkiot)
-            if(yhtio.getLevyyhtioID() == nro) loydetyt.add(yhtio);
-        return loydetyt;
+            kaikki.add(yhtio);
+        return kaikki;
     }
     
     
@@ -240,7 +239,7 @@ public class Levyyhtiot implements Iterable<Levyyhtio> {
         
             System.out.println("============= Levy-yhtiöt testi =================");
             
-        List<Levyyhtio> yhtiot = levyyhtiot.annaYhtiot(1000);
+        List<Levyyhtio> yhtiot = levyyhtiot.annaYhtiot();
         
         for (Levyyhtio ly : yhtiot) {
             System.out.print(ly);

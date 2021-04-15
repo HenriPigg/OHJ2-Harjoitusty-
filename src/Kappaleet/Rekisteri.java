@@ -170,11 +170,10 @@ public class Rekisteri {
     
     
     /**
-     * @param artisti Artisti, jonka levy-yhtiötä etsitään
      * @return Artistin levy-yhtio
      */
-    public List<Levyyhtio> annaYhtiot(Artisti artisti) {
-        return yhtiot.annaYhtiot(artisti.getLevyyhtioID());
+    public List<Levyyhtio> annaYhtiot() {
+        return yhtiot.annaYhtiot();
     }
     
     
@@ -189,25 +188,10 @@ public class Rekisteri {
     
     
     /**
-     * @param kappale Kappale, jolle artisti haetaan
-     * @return Kappaleen artisti
-     * @example
-     * <pre name="test">
-     *  #import java.util.*;
-     *  #import Artistit.Artisti;
-     *  Rekisteri r = new Rekisteri();
-     *  Kappale k1 = new Kappale(), k2 = new Kappale();
-     *  k1.rekisteroi(); k2.rekisteroi();
-     *  Artisti a1 = new Artisti(); r.lisaa(a1);
-     *  Artisti a2 = new Artisti(); r.lisaa(a2);
-     *  
-     *  List<Artisti> loytyneet;
-     *  loytyneet = r.annaArtistit(k1);
-     *  loytyneet.size() === 2;
-     * </pre>
+     * @return Tietorakenteen kaikki artistit
      */
-    public List<Artisti> annaArtistit(Kappale kappale) {
-      return artistit.annaArtistit(kappale.getArtistiID());
+    public List<Artisti> annaArtistit() {
+      return artistit.annaArtistit();
     }
     
     
@@ -268,12 +252,12 @@ public class Rekisteri {
                 System.out.println();
                 kappale.tulosta(System.out);
                 System.out.println("---------- Tästä eteenpäin artistin tulostus ----------");
-                List<Artisti> artistit = rekisteri.annaArtistit(kappale);
+                List<Artisti> artistit = rekisteri.annaArtistit();
                 for (Artisti ar : artistit)
                     ar.tulosta(System.out);
 
                 System.out.println("---------- Tästä eteenpäin levy-yhtiön tulostus ----------");
-                List<Levyyhtio> yhtiot = rekisteri.annaYhtiot(travis);
+                List<Levyyhtio> yhtiot = rekisteri.annaYhtiot();
                 for(Levyyhtio yhtio : yhtiot)
                     yhtio.tulosta(System.out);
             }
