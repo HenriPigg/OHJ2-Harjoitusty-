@@ -29,6 +29,42 @@ public class Kappale implements Cloneable{
     
     
     /**
+     * @return Kenttien lukumäärä
+     */
+    public int getKenttia() {
+        return 8;
+    }
+    
+    
+    /**
+     * @return Ensimmäinen "hyvä" kenttä
+     */
+    public int ekaKentta() {
+        return 3;
+    }
+    
+    
+    /**
+     * @param k kenttää vastaava kysymys
+     * @return kenttää vastaava kysymys
+     */
+    public String getKysymys(int k) {
+        switch ( k ) {
+        case 0: return "Kappale id";
+        case 1: return "Artisti id";
+        case 2: return "Levy-yhtiö id";
+        case 3: return "Kappaleen nimi";
+        case 4: return "albumi";
+        case 5: return "julkaisuvuosi";
+        case 6: return "genre";
+        case 7: return "kuuntelukerrat";
+        default: return "Äääliö";
+        }
+
+    }
+    
+    
+    /**
      * Tulostetaan kappaleen tiedot
      * @param out tietovirta johon tulostetaan
      */
@@ -39,6 +75,26 @@ public class Kappale implements Cloneable{
         out.println(julkaisuvuosi);
         out.println(genre);
         out.println(kuuntelukerrat);
+    }
+    
+    
+    /**
+     * @param k Monesko kenttä
+     * @return Monennen kentän sisältö annetaan
+     */
+    public String anna(int k) {
+        switch ( k ) {
+        case 0: return "" + kappaleId;
+        case 1: return "" + artistiID;
+        case 2: return "" + yhtioID;
+        case 3: return "" + kappaleenNimi;
+        case 4: return "" + albumi;
+        case 5: return "" + julkaisuvuosi;
+        case 6: return "" + genre;
+        case 7: return "" + kuuntelukerrat;
+        default: return "Äääliö";
+        }
+
     }
     
     

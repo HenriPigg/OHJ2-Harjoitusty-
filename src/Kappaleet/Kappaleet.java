@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import fi.jyu.mit.ohj2.WildChars;
+
 /**
  * @author Joonas Ruuth & Henri Pigg
  * @version 22.2.2021
@@ -89,6 +91,84 @@ public class Kappaleet implements Iterable<Kappale> {
             throw new IndexOutOfBoundsException("Ei sallittu indeksi: " + i);
         return alkiot[i];
     }
+
+    
+    /** 
+     * Etsii kappaleen id:n perusteella 
+     * @param id id, jonka mukaan etsitään 
+     * @return kappale jolla etsittävä id tai null 
+     * <pre name="test"> 
+     * #THROWS SailoException  
+     * Kappaleet kappaleet = new Kappaleet(); 
+     * Kappale eka = new Kappale(), toka = new Kappale(), kolmas = new Kappale(); 
+     * eka.rekisteroi(); toka.rekisteroi(); kolmas.rekisteroi();  
+     * int id1 = eka.getKappaleId(); 
+     * kappaleet.lisaa(eka); kappaleet.lisaa(toka); kappaleet.lisaa(kolmas); 
+     * kappaleet.annaId(id1  ) == eka === true;
+     * kappaleet.annaId(id1+1) == toka === true; 
+     * kappaleet.annaId(id1+2) == kolmas === true;
+     * </pre> 
+     */ 
+    public Kappale annaId(int id) { 
+        for (Kappale kappale : this) { 
+            if (id == kappale.getKappaleId()) return kappale; 
+        } 
+        return null; 
+    } 
+
+    
+    
+    /** 
+     * Poistaa kappaleen jolla on valittu id
+     * @param id poistettavan kappaleen id 
+     * @return 1 jos poistettiin, 0 jos ei löydy 
+     * @example 
+     * <pre name="test"> 
+     * #THROWS SailoException  
+     * Kappaleet kappaleet = new Kappaleet(); 
+     * Kappale eka = new Kappale(), toka = new Kappale(), kolmas = new Kappale(); 
+     * eka.rekisteroi(); toka.rekisteroi(); kolmas.rekisteroi(); 
+     * int id1 = eka.getKappaleId(); 
+     * kappaleet.lisaa(eka); kappaleet.lisaa(toka); kappaleet.lisaa(kolmas); 
+     * kappaleet.poista(id1+1) === 1; 
+     * kappaleet.annaId(id1+1) === null; kappaleet.getLkm() === 2; 
+     * kappaleet.poista(id1) === 1; kappaleet.getLkm() === 1; 
+     * kappaleet.poista(id1+3) === 0; kappaleet.getLkm() === 1; 
+     * </pre> 
+     *  
+     */ 
+    public int poista(int id) { 
+        int ind = etsiId(id); 
+        if (ind < 0) return 0; 
+        lkm--; 
+        for (int i = ind; i < lkm; i++) 
+            alkiot[i] = alkiot[i + 1]; 
+        alkiot[lkm] = null; 
+        muutettu = true; 
+        return 1; 
+    } 
+
+
+    /** 
+     * Etsii jäsenen id:n perusteella 
+     * @param id tunnusnumero, jonka mukaan etsitään 
+     * @return löytyneen jäsenen indeksi tai -1 jos ei löydy 
+     * <pre name="test"> 
+     * #THROWS SailoException  
+     * Kappaleet kappaleet = new Kappaleet(); 
+     * Kappale eka = new Kappale(), toka = new Kappale(), kolmas = new Kappale(); 
+     * eka.rekisteroi(); toka.rekisteroi(); kolmas.rekisteroi(); 
+     * int id1 = eka.getKappaleId(); 
+     * kappaleet.lisaa(eka); kappaleet.lisaa(toka); kappaleet.lisaa(kolmas); 
+     * kappaleet.etsiId(id1+1) === 1; 
+     * kappaleet.etsiId(id1+2) === 2; 
+     * </pre> 
+     */ 
+    public int etsiId(int id) { 
+        for (int i = 0; i < lkm; i++) 
+            if (id == alkiot[i].getKappaleId()) return i; 
+        return -1; 
+    } 
 
     
     /**
@@ -246,14 +326,18 @@ public class Kappaleet implements Iterable<Kappale> {
      * @param k etsittävän kentän indeksi
      * @return tietorakenne löytyneistä kappaleista
      */
-    @SuppressWarnings("unused")
     public Collection<Kappale> etsi(String hakuehto, int k) {
-        Collection<Kappale> loytyneet = new ArrayList<Kappale>();
-        for(Kappale kappale : this) {
-            loytyneet.add(kappale);
-        }
-        
-        return loytyneet;
+        String ehto = "*"; 
+        if ( hakuehto != null && hakuehto.length() > 0 ) ehto = hakuehto; 
+        int hk = k; 
+        if ( hk < 0 ) hk = 1;
+        Collection<Kappale> loytyneet = new ArrayList<Kappale>(); 
+        for (Kappale kappale : this) { 
+            if (WildChars.onkoSamat(kappale.anna(hk), ehto)) loytyneet.add(kappale);   
+        } 
+        //  TODO: lajittelua varten vertailija  
+        return loytyneet; 
+
     }
     
     

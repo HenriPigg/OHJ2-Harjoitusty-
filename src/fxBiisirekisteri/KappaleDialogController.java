@@ -27,6 +27,7 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     @FXML private TextField editKappaleenNimi;
     @FXML private TextField editAlbumi;
     @FXML private TextField editJulkaisuvuosi;
+    @FXML private TextField editYhtio;
     @FXML private TextField editGenre;
     @FXML private TextField editKuuntelukerrat;
     
@@ -185,7 +186,22 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
     }
 
     
-    
+    /**
+     * Näytetään kappaleen tiedot TextField komponentteihin
+     * @param edits Tekstikenttä taulukko
+     * @param kappale näytettävä jäsen
+     * @param rekisteri rekisteri
+     */
+    public static void naytaLoput(TextField[] edits, Kappale kappale, Rekisteri rekisteri) {
+        if (kappale == null) return;
+        edits[0].setText(kappale.getKappaleenNimi());
+        edits[1].setText(rekisteri.annaArtisti(kappale).getArtistiNimi());
+        edits[2].setText(kappale.getAlbumi());
+        edits[3].setText(kappale.getVuosi());
+        edits[4].setText(rekisteri.annaYhtio(kappale).getLevyyhtio());
+        edits[5].setText(kappale.getGenre());
+        edits[6].setText(kappale.getKuuntelukerrat());
+    }
     
     
     /**

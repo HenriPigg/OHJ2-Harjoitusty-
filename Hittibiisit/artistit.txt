@@ -4,3 +4,5 @@
 4|Metallica|1981
 5|Antti Tuisku|2003
 6|Michael Jackson|1964
+7|Sony Music|2000
+8|Cheek|1998

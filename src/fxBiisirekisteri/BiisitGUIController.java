@@ -42,8 +42,10 @@ public class BiisitGUIController implements Initializable{
     @FXML private ListChooser<Kappale> chooserKappaleet;
     
     @FXML private TextField editKappaleenNimi;
+    @FXML private TextField editArtisti;
     @FXML private TextField editAlbumi;
     @FXML private TextField editJulkaisuvuosi;
+    @FXML private TextField editYhtio;
     @FXML private TextField editGenre;
     @FXML private TextField editKuuntelukerrat;
 
@@ -65,8 +67,7 @@ public class BiisitGUIController implements Initializable{
     
     
     @FXML private void handleHakuehto() {
-        if ( kappaleKohdalla != null )
-            hae(kappaleKohdalla.getKappaleId()); 
+       hae(0);
 
     }
 
@@ -108,7 +109,7 @@ public class BiisitGUIController implements Initializable{
     
     @FXML
     void handlePoistaKappale() {
-        Dialogs.showMessageDialog("Ei osata vielä poistaa :(");
+        poistaKappale();
     }
 
 
@@ -132,6 +133,7 @@ public class BiisitGUIController implements Initializable{
     private String listannimi = "Hittibiisit";
     private Rekisteri rekisteri;
     private Kappale kappaleKohdalla;
+    private static Kappale apuKappale = new Kappale();
     
     private TextField edits[];
     
@@ -142,10 +144,17 @@ public class BiisitGUIController implements Initializable{
         chooserKappaleet.clear();
         chooserKappaleet.addSelectionListener(e -> naytaKappale());
         
+        cbKentat.clear();
+        for (int i = apuKappale.ekaKentta(); i < apuKappale.getKenttia(); i++)
+            cbKentat.add(apuKappale.getKysymys(i), null);
+        cbKentat.getSelectionModel().select(0);
+        
         edits = new TextField[] { 
                 editKappaleenNimi, 
+                editArtisti,
                 editAlbumi, 
-                editJulkaisuvuosi, 
+                editJulkaisuvuosi,
+                editYhtio,
                 editGenre, 
                 editKuuntelukerrat };
     }
@@ -160,7 +169,8 @@ public class BiisitGUIController implements Initializable{
         if(kappaleKohdalla == null) return;
         
         KappaleDialogController.naytaKappale(edits, kappaleKohdalla);
-             
+        KappaleDialogController.naytaLoput(edits, kappaleKohdalla, rekisteri);
+
     }
     
     
@@ -169,30 +179,50 @@ public class BiisitGUIController implements Initializable{
      * @param nro Kappaleen numero
      */
     private void hae(int nro) {
-        int k = cbKentat.getSelectionModel().getSelectedIndex();
-        String ehto = hakuehto.getText();
-        if (k > 0 || ehto.length() > 0)
-                naytaVirhe(String.format("Ei osata hakea (kenttä: %d, ehto %s)",  k, ehto));
-        else
-            naytaVirhe(null);
+        int knro = nro; // jnro jäsenen numero, joka aktivoidaan haun jälkeen 
+        if ( knro <= 0 ) { 
+            Kappale kohdalla = kappaleKohdalla; 
+            if ( kohdalla != null ) knro = kohdalla.getKappaleId(); 
+        }
+        
+        int k = cbKentat.getSelectionModel().getSelectedIndex() + apuKappale.ekaKentta(); 
+        String ehto = hakuehto.getText(); 
+        if (ehto.indexOf('*') < 0) ehto = "*" + ehto + "*"; 
         
         chooserKappaleet.clear();
-        
+
         int index = 0;
         Collection<Kappale> kappaleet;
         try {
             kappaleet = rekisteri.etsi(ehto, k);
             int i = 0;
             for (Kappale kappale : kappaleet) {
-                if (kappale.getKappaleId() == nro) index = i;
+                if (kappale.getKappaleId() == knro) index = i;
                 chooserKappaleet.add(kappale.getKappaleenNimi(), kappale);
                 i++;
             }
         } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Kappaleen hakemisessa ongelmia! " + ex.getMessage());
+            Dialogs.showMessageDialog("Jäsenen hakemisessa ongelmia! " + ex.getMessage());
         }
+        chooserKappaleet.setSelectedIndex(index); // tästä tulee muutosviesti joka näyttää jäsenen
+
+    }
+    
+    
+    /*
+     * Poistetaan listalta valittu jäsen
+     */
+    private void poistaKappale() {
+        Kappale kappale = kappaleKohdalla;
+        if ( kappale == null ) return;
+        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kappale: " + kappale.getKappaleenNimi(), "Kyllä", "Ei") )
+            return;
+        rekisteri.poista(kappale);
+        int index = chooserKappaleet.getSelectedIndex();
+        hae(0);
         chooserKappaleet.setSelectedIndex(index);
     }
+
     
     
     private void muokkaa() { 
@@ -323,15 +353,15 @@ public class BiisitGUIController implements Initializable{
     }
     
     
-    private void naytaVirhe(String virhe) {
-        if ( virhe == null || virhe.isEmpty() ) {
-            labelVirhe.setText("");
-            labelVirhe.getStyleClass().removeAll("virhe");
-            return;
-        }
-        labelVirhe.setText(virhe);
-        labelVirhe.getStyleClass().add("virhe");
-    }
+//    private void naytaVirhe(String virhe) {
+//        if ( virhe == null || virhe.isEmpty() ) {
+//            labelVirhe.setText("");
+//            labelVirhe.getStyleClass().removeAll("virhe");
+//            return;
+//        }
+//        labelVirhe.setText(virhe);
+//        labelVirhe.getStyleClass().add("virhe");
+//    }
 
 
     private String tallenna() {

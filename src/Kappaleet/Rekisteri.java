@@ -59,6 +59,18 @@ public class Rekisteri {
     
     
     /**
+     * @param kappale Poistettava kappale
+     * @return montako poistettiin
+     */
+    public int poista(Kappale kappale) {
+        if ( kappale == null ) return 0;
+        int ret = kappaleet.poista(kappale.getKappaleId());  
+        return ret; 
+    }
+
+    
+    
+    /**
      * @param kappale Lisättävän kappaleen viite
      * @throws SailoException jos täynnä
      */
