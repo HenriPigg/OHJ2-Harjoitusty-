@@ -1,10 +1,11 @@
 Hittibiisit
 10
-1|0|SICKO MODE|ASTROWORLD|2018|Hip hop|120000000
-2|0|Wonderwall|Familiar to Millions|2000|Indie|13000000
-3|0|One|…And Justice for All|1988|Thrash metal, Rock|37249333
-4|0|Mä hiihdän|Anatude|2017|Pop|23244244
-5|0|Thriller|Billie Jean|1982|R&B, pop|2983928392
-6|0|Blinding Lights|Blinding Lights|2019|Synthwave|4347023843
-7|0|Save Your Tears|After Hours|2020|R&B ja soul|322342343
-8|0|Goosebumps|Birds in the Trap Sing McKnight|2016|Hiphop ja rap|34343423434
+1|1|1|SICKO MODE|ASTROWORLD|2018|Hip hop|120000000
+2|2|0|Wonderwall|Familiar to Millions|2000|Indie|13000000
+3|4|0|One|…And Justice for All|1988|Thrash metal, Rock|37249333
+4|5|3|Mä hiihdän|Anatude|2017|Pop|23244244
+5|6|0|Thriller|Billie Jean|1982|R&B, pop|2983928392
+6|3|0|Blinding Lights|Blinding Lights|2019|Synthwave|4347023843
+7|3|0|Save Your Tears|After Hours|2020|R&B ja soul|322342343
+8|1|0|Goosebumps|Birds in the Trap Sing McKnight|2016|Hiphop ja rap|34343423434
+9|1|0|HIGHEST IN THE ROOM|JackBoys|2019|Hip hop|34344355

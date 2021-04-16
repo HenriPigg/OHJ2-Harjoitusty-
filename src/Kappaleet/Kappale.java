@@ -17,18 +17,16 @@ public class Kappale implements Cloneable{
 
     private int kappaleId = 0;
     private int artistiID = 0;
+    private int yhtioID = 0;
     private String kappaleenNimi = "";
     private String albumi = "";
     private String julkaisuvuosi = "";
     private String genre = "";
     private String kuuntelukerrat = "";
     
-  
-
-
-
-    
     private static int seuraavaNro = 1;
+    private static int seuraavaYhtioNro = 1;
+    
     
     /**
      * Tulostetaan kappaleen tiedot
@@ -80,6 +78,14 @@ public class Kappale implements Cloneable{
      */
     public int getKappaleId() {
         return this.kappaleId;
+    }
+    
+    
+    /**
+     * @return Levy-yhtiön id
+     */
+    public int getYhtioID() {
+        return this.yhtioID;
     }
     
     
@@ -179,6 +185,16 @@ public class Kappale implements Cloneable{
     
     
     /**
+     * @param n Asetettava id
+     * @return null jos kaikki ok
+     */
+    public String setYhtioID(int n) {
+        this.yhtioID = n;
+        return null;
+    }
+    
+    
+    /**
      * Luodaan testiarvot kappaleelle.
      */
     public void vastaaSickoMode() {
@@ -242,6 +258,17 @@ public class Kappale implements Cloneable{
     
     
     /**
+     * @return Generoidun levy-yhtiö id:n
+     */
+    public int rekisteroiYhtio() {
+        this.yhtioID = seuraavaYhtioNro;
+        seuraavaYhtioNro++;
+        
+        return this.yhtioID;
+    }
+    
+    
+    /**
      * Palauttaa kappaleen tiedot merkkijonona jonka voi tallentaa tiedostoon.
      * @return kappale tolppaeroteltuna merkkijonona 
      * @example
@@ -256,12 +283,14 @@ public class Kappale implements Cloneable{
         return "" +
                 getKappaleId() + "|" +
                 this.artistiID + "|" +
+                this.yhtioID + "|" +
                 this.kappaleenNimi + "|" +
                 this.albumi + "|" +
                 this.julkaisuvuosi + "|" +
                 this.genre + "|" +
                 this.kuuntelukerrat;
     }
+
 
     
     private void setKappaleId(int nro) {
@@ -296,6 +325,7 @@ public class Kappale implements Cloneable{
         StringBuffer sb = new StringBuffer(rivi);
         setKappaleId(Mjonot.erota(sb, '|', getKappaleId()));
         artistiID = Mjonot.erota(sb, '|', artistiID);
+        yhtioID = Mjonot.erota(sb, '|', yhtioID);
         kappaleenNimi = Mjonot.erota(sb, '|', kappaleenNimi);
         albumi = Mjonot.erota(sb, '|', albumi);
         julkaisuvuosi = Mjonot.erota(sb, '|', julkaisuvuosi);

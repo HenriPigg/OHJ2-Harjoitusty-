@@ -164,8 +164,8 @@ public class Rekisteri {
      * @param artisti Artisti, jolta levy-yhtio id haetaan
      * @return Artistin levy-yhtiö
      */
-    public Levyyhtio annaYhtio(Artisti artisti) {
-        return yhtiot.annaYhtio(artisti.getLevyyhtioID());
+    public Levyyhtio annaYhtio(Kappale artisti) {
+        return yhtiot.annaYhtio(artisti.getYhtioID());
     }
     
     

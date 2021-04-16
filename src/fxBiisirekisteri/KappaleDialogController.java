@@ -114,7 +114,23 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
             naytaVirhe(virhe);
         }
     }
+    
+    
+    private void kasitteleArtistiID(ComboBoxChooser<Artisti> combo) {
+        if (kappaleKohdalla == null) return;
+       
+        combo.addSelectionListener(e -> kappaleKohdalla.setArtistiID(combo.getSelectedObject().getArtistiID()));
 
+    }
+    
+    
+    private void kasitteleYhtioID(ComboBoxChooser<Levyyhtio> combo) {
+        if (kappaleKohdalla == null) return;
+       
+        combo.addSelectionListener(e -> kappaleKohdalla.setYhtioID(combo.getSelectedObject().getLevyyhtioID()));
+
+    }
+    
     
     
     /**
@@ -122,11 +138,9 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
      */
     public void alusta() {
         
-        cbArtistit.clear();
         for (Artisti ar : rekisteri.annaArtistit())
             cbArtistit.add(ar.getArtistiNimi(), ar);
-        
-        
+
         cbYhtiot.clear();
         for (Levyyhtio yh : rekisteri.annaYhtiot())
             cbYhtiot.add(yh.getLevyyhtio(), yh);
@@ -143,6 +157,9 @@ public class KappaleDialogController implements ModalControllerInterface<Kappale
             final int k = ++i;
             edit.setOnKeyReleased( e -> kasitteleMuutosKappaleeseen(k, (TextField)(e.getSource())));
         }
+        
+        kasitteleArtistiID(cbArtistit);
+        kasitteleYhtioID(cbYhtiot);
     }
     
     

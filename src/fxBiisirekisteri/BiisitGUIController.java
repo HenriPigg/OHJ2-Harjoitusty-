@@ -318,7 +318,7 @@ public class BiisitGUIController implements Initializable{
         artisti.tulosta(os);
         os.println("----------------------------------------------");
 
-        Levyyhtio levyhtio = rekisteri.annaYhtio(artisti);
+        Levyyhtio levyhtio = rekisteri.annaYhtio(kappale);
         levyhtio.tulosta(os);
     }
     

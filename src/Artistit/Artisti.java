@@ -15,8 +15,7 @@ import fi.jyu.mit.ohj2.Mjonot;
  */
 public class Artisti implements Cloneable{
 
-    private int artistiID;
-    private int levyyhtioID;
+    private int artistiID = 0;
     private String artistiNimi = "";
     private String aloitusvuosi = "";
     
@@ -50,15 +49,6 @@ public class Artisti implements Cloneable{
     public String getArtistiNimi() {
         return this.artistiNimi;
     }
-    
-    
-    /**
-     * @return palauttaa levy-yhtiön id:n
-     */
-    public int getLevyyhtioID() {
-        return this.levyyhtioID;
-    }
-    
     
     
     /**
@@ -115,7 +105,6 @@ public class Artisti implements Cloneable{
      */
     public void vastaaTravisScott(int nro) {
         this.artistiID = nro;
-        this.levyyhtioID = 1;
         this.artistiNimi = "Travis Scott";
         this.aloitusvuosi = "2013";
     }
@@ -139,7 +128,6 @@ public class Artisti implements Cloneable{
      */
     public void vastaaOasis(int nro) {
         this.artistiID = nro;
-        this.levyyhtioID = 1001;
         this.artistiNimi = "Oasis";
         this.aloitusvuosi = "2000";
     }
@@ -159,15 +147,14 @@ public class Artisti implements Cloneable{
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
-        out.println(String.format("%02d", this.artistiID));
-        out.println(String.format("%d", this.levyyhtioID));
+        out.println(String.format("%d", this.artistiID));
         out.println(this.artistiNimi);
-        out.println(String.format("%d", this.aloitusvuosi));
+        out.println(aloitusvuosi);
     }
 
     @Override
     public String toString() {
-        return "" + getArtistiID() + "|" + this.levyyhtioID + "|" + this.artistiNimi + "|" + this.aloitusvuosi;
+        return "" + getArtistiID() + "|" + this.artistiNimi + "|" + this.aloitusvuosi;
     }
     
     
@@ -193,7 +180,6 @@ public class Artisti implements Cloneable{
     public void parse(String rivi) {
         StringBuffer sb = new StringBuffer(rivi);
         setArtistiID(Mjonot.erota(sb, '|', getArtistiID()));
-        this.levyyhtioID = Mjonot.erota(sb, '|', levyyhtioID);
         this.artistiNimi = Mjonot.erota(sb, '|', artistiNimi);
         aloitusvuosi = Mjonot.erota(sb, '|', aloitusvuosi);
     }

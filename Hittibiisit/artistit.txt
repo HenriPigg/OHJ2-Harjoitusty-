@@ -1,3 +1,6 @@
-1|0|Travis Scott|2013
-2|0|Oasis|1990
-3|0|The Weeknd|2010
+1|Travis Scott|2013
+2|Oasis|1990
+3|The Weeknd|2010
+4|Metallica|1981
+5|Antti Tuisku|2003
+6|Michael Jackson|1964
